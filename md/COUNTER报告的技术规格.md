@@ -29,5 +29,23 @@ R5的报告由四个主报告组成，这些主报告使馆员可以过滤和配
 
 平台使用标准视图派生自平台主报告，提供给定的平台活动的总结以支持平台的评估，并提供高层次的统计数据来支持调查和对资助者汇报。
 
+表 3.b: 平台使用标准视图
 
+| Report_ID | Report_Name                | Details                                           | Host_Types                                                   |
+| --------- | -------------------------- | ------------------------------------------------- | ------------------------------------------------------------ |
+| PR_P1     | 平台使用（Platform Usage） | 以指标类型（Metric_Type）总结的平台级别使用情况 . | All Host_Types:<br/>A&I_Database<br/>Aggregated_Full_Content<br/>Data_Repository*<br/>Discovery_Service<br/>eBook<br/>eBook_Collection<br/>eJournal<br/>Full_Content_Database<br/>Multimedia<br/>Multimedia_Collection<br/>Repository<br/>Scholarly_Collaboration_Network |
 
+有关平台使用报告的详细信息，请参见下面的第4.2节。
+
+#### 3.1.2.2 数据库使用标准视图
+
+数据库使用标准视图支持评估给定资源数据库（例如，全文数据库，A＆I数据库或多媒体集合）的价值。
+
+表 3.c: 数据库使用标准视图
+
+| Report_ID | Report_Name                    | Details                                                      | Host_Types                                                   |
+| --------- | ------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| DR_D1     | Database Search and Item Usage | 评估数据库所需的关键搜索，访问和请求指标报告                 | A&I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection |
+| DR_D2     | Database Access Denied         | 用户因为同时使用许可证超出限制，或者他们的机构没有这个数据库的许可证而被拒绝访问的数据库拒绝访问活动报告。 | A&I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection |
+
+有关数据库使用报告的详细信息，请参见下面的第4.2节。
