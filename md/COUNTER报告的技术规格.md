@@ -49,3 +49,34 @@ R5的报告由四个主报告组成，这些主报告使馆员可以过滤和配
 | DR_D2     | Database Access Denied         | 用户因为同时使用许可证超出限制，或者他们的机构没有这个数据库的许可证而被拒绝访问的数据库拒绝访问活动报告。 | A&I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection |
 
 有关数据库使用报告的详细信息，请参见下面的第4.2节。
+
+#### 3.1.2.3 标题使用标准视图
+
+标题使用标准视图用于支持对连载（例如期刊，杂志或报纸）或专著（例如书籍，电子书，教科书或参考书目）的标题的价值进行评估。
+
+表 3.d: 标题使用标准视图
+
+| Report_ID | Report_Name                                 | Details                                                      | Host_Types                                             |
+| --------- | ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
+| TR_B1     | Book Requests (Excluding OA_Gold)           | 报告书籍的全文活动，不包括Gold Open Access内容，如 **Total_Item_Requests**和**Unique_Title_Requests**。<br/>**Unique_Title_Requests**提供了跨图书平台的可比较方法。**Total_Item_Requests**显示总体活动；但是，根据内容的交付方式（例如，作为一本完整的书还是按章节交付），站点之间的数量将有很大不同。 | Aggregated_Full_Content<br/>eBook<br/>eBook_Collection |
+| TR_B2     | Book Access Denied                          | 用户因为同时使用许可证超出限制，或者他们的机构没有这个书籍的许可证而被拒绝访问的书籍拒绝访问活动报告。 | Aggregated_Full_Content<br/>eBook<br/>eBook_Collection |
+| TR_B3     | Book Usage by Access Type                   | 书籍使用的报告，显示了按Access_Type细分的所有适用的Metric_Type。 | Aggregated_Full_Content<br/>eBook<br/>eBook_Collection |
+| TR_J1     | Journal Requests (Excluding OA_Gold)        | 期刊内容使用报告, 不包括Gold Open Access内容，如 **Total_Item_Requests**和**Unique_Item_Requests**。<br/>**Unique_Item_Requests**通过减少自动显示HTML全文但用户随后访问PDF版本时产生的重复访问影响，在整个期刊平台上提供可比较的方法。**Total_Item_Requests**显示总体活动。 | Aggregated_Full_Content eJournal                       |
+| TR_J2     | Journal Access Denied                       | 用户因为同时使用许可证超出限制，或者他们的机构没有这个标题的许可证而被拒绝访问的期刊拒绝访问活动报告。 | Aggregated_Full_Content eJournal                       |
+| TR_J3     | Journal Usage by Access Type                | 报告按Access_Type细分的所有Metric_Type的期刊内容使用情况。   | Aggregated_Full_Content eJournal                       |
+| TR_J4     | Journal Requests by YOP (Excluding OA_Gold) | 按出版年份（YOP）细分期刊内容（不包括Gold Open Access内容）的使用情况， 并提供**Metric_Types**（**Total_Item_Requests**和**Unique_Item_Requests**）的计数。提供分析备份文件或永久访问协议所涵盖内容的使用所必需的细节。请注意，COUNTER报告不提供访问模型或永久访问权限详细信息。 | Aggregated_Full_Content eJournal                       |
+
+关于标题使用标准视图的详细信息，请参见下面的4.3节。
+
+#### 3.1.2.4 项使用标准视图
+
+项级报告的标准视图旨在支持最常见的报告需求。存储库的标准视图（期刊文章请求）提供了对各个期刊文章的用法的了解。多媒体的标准视图（多媒体项目请求）允许在标题级别评估多媒体。
+
+表 3.e：项使用标准视图
+
+| Report_ID | Report_Name              | Details                                                      | Host_Types                                 |
+| --------- | ------------------------ | ------------------------------------------------------------ | ------------------------------------------ |
+| IR_A1     | Journal Article Requests | 文章级别的期刊文章请求报告。这个报告仅限于有文章的**Data_Type**，期刊的**Parent_Data_Type**和**Metric_Types**的**Total_Item_Requests**和**Unique_Item_Requests**的内容。仅在以下情况下必须提供此标准视图：（a）在IR中清楚所有文章是否为期刊文章，并且（b）所有期刊文章都知道父项。 | Repository Scholarly_Collaboration_Network |
+| IR_M1     | Multimedia Item Requests | 在项级别报告多媒体请求。                                     | Multimedia                                 |
+
+有关项目使用情况报告的详细信息，请参见下面的第4.4节。
