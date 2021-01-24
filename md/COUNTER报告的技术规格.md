@@ -80,3 +80,49 @@ R5的报告由四个主报告组成，这些主报告使馆员可以过滤和配
 | IR_M1     | Multimedia Item Requests | 在项级别报告多媒体请求。                                     | Multimedia                                 |
 
 有关项目使用情况报告的详细信息，请参见下面的第4.4节。
+
+## 3.2 COUNTER报告的格式
+
+R5报告能够以表格形式或通过COUNTER_SUSHI API以机器可读数据（JSON）的形式传送。表格形式必须是Excel或制表符分隔值（TSV）文件。JSON和TSV格式的报告必须使用**UTF-8**进行编码。JSON格式必须符合COUNTER_SUSHI API规范（请参阅第8节）。
+
+所有的COUNTER报告都具有相同的布局和结构。图3.b提供了“期刊请求（不包括OA_Gold）”标准视图的示例。图3.c显示了表格报告的布局，这将是本文档中讨论的重点。请注意，COUNTER_SUSHI API规范包含名称相同或相似的相同元素。因此，理解表格报告将转化为对通过COUNTER_SUSHI API检索的报告中需要的内容的理解。
+
+图 3.b 期刊请求（不包括OA_Gold）标准视图样例
+
+![](img\TR_J1.png)
+
+图 3.c COUNTER表格报表的布局
+
+![](img\image3.png)
+
+所有COUNTER报告都有标题。在表格报告中，标题与正文之间用空白行分隔（以方便在Excel中进行排序和过滤）。在此之下是带有列标题的报告正文。正文的内容因报告而异。图3.c标识了您可以在报告中找到的各种信息以及此信息的相对位置。所有这些将在下面更详细地讨论。
+
+### 3.2.1 报告标题
+
+表格COUNTER报表的前12行包含标题，而第13行始终为空白。标题信息以一系列名称/值对的形式显示，名称显示在A列中，相应的值显示在B列中。所有表格COUNTER报告在A列中具有相同的名称。B列条目因报告而异。
+
+图3.d：通用报告标题信息
+
+![](img\FIG-3D.png)
+
+图3.d显示了常见标题的布局。下表更详细地讨论了列A中的12个元素和列B中的值。请注意，元素名称（A列）务必与此处显示的一样展示在COUNTER报告中。大写，拼写和标点必须完全匹配。
+
+表3.f：COUNTER报告标题元素
+
+| 元素名称          | 值的描述                                                     | 示例                                                         |
+| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Report_Name       | 报告的名称                                                   | Journal Requests (Excluding OA_Gold)                         |
+| Report_ID         | 报告的唯一标识符                                             | TR_J1                                                        |
+| Release           | 此报告遵循的COUNTER版本。                                    | 5                                                            |
+| Institution_Name  | 对于基于订阅的服务，是使用所属的机构的名称。对于OA出版商和存储库，无法确定各个机构的使用情况，应将使用情况归于“（全世界）The world”。 | Mt. Laurel University                                        |
+| Institution_ID    | 一系列标识符，以*{namespace}*：*{value}*的格式表示机构。多个标识符用分号（“;”）分隔。允许的标识符命名空间是ISIL，ISNI，OCLC，对于由内容提供商分配的本地标识符，则为内容提供商的平台ID。 | ISNI:0000000419369078; pubsiteA:PrncU                        |
+| Metric_Types      | 以分号分隔的指标类型列表。请注意，即使请求了Metric_Type，但如果没有报告项使用该类型，则它也可能不包含在报告正文中。 | Unique_Item_Investigations; Unique_Item_Requests             |
+| Report_Filters    | 应用于使用报告的一系列过滤器，但**Metric_Type**，**Begin_Date**和**End_Date**除外（它们在表格报告中的单独行中显示，以方便阅读）。通常，过滤器会影响报告的使用量。过滤器以*{filter name}*=*{filter value}*格式出现，多个过滤器以分号(";")分隔，单个过滤器的多个值以竖线分隔符("\|")分隔。 | Access_Type=Controlled; Access_Method=Regular                |
+| Report_Attributes | 应用于报告的一系列报告属性。通常，报告属性会影响使用情况的显示方式，但不会改变总数。属性以*{attribute name}*=*{attribute value}*格式出现，多个属性以分号(";")分隔，单个属性的多个值以竖线分隔符("\|")分隔。 | Attributes_To_Show=Access_Type                               |
+| Exceptions        | 指明所请求的使用情况与报告中呈现的使用情况之间的一些差异。异常值的格式为*{Exception Number}*: *{Exception Description}* ，多个异常值之间用分号-空格（“; ”）分隔。异常编号和异常描述必须与[附录F的](https://www.projectcounter.org/appendix-f-handling-errors-exceptions/)表F.1中提供的值匹配。数据是可选的。<br/>请注意，对于表格报告，只有少数异常会被应用。 | 3031: Usage Not Ready for Requested Dates (request was for 2016-01-01 to 2016-12-31; however, usage is only available to 2016-08-31) |
+| Reporting_Period  | 报告使用的日期范围, 格式为: “Begin_Date=*yyyy-mm-dd*; End_Date=*yyyy-mm-dd*”. | Begin_Date=2016-01-01; End_Date=2016-08-30                   |
+| Created           | 使用的日期和时间，格式为RFC3339日期时间格式（*yyyy-mm-ddThh：mm：ssZ*）。 | 2016-10-11T14:37:15Z                                         |
+| Created_By        | 创建COUNTER报告的组织或系统的名称。                          | EBSCO Information Services 360 COUNTER                       |
+| (blank row)       | 第13行必须为空白。                                           |                                                              |
+
+### 3.2.2 报告正文
