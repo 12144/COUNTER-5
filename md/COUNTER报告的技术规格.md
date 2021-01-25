@@ -292,3 +292,74 @@ R5以多种形式报告学术信息。这些形式被称作数据了类型**Data
 | Thesis_or_Dissertation  | 论文或学术演讲                                               | A&I_Database Aggregated_Full_Content Discovery_Service Repository | PR, DR, TR, IR PR_P1, DR_D1                             |
 
 Full_Content_Databases也可以在主标题报告中使用Data_Type Database。所有其他Host_Types必须报告访问和请求，或者是标题级别的Data_Types(如journa, book, from Host_Type A&I_Database, Aggregated_Full_Content, Discovery_Service, eBook, eBook_Collection 和 eJournal)，或项级别的Data_Types(如 article, Multimedia for a video from Host_Type Data_Repository, Multimedia, Multimedia_Collection, Repository和Scholarly_Collaboration_Network)。必须在需要合规的所有报告中使用这些Data_Types，以确保报告的一致性。
+
+### 3.3.3 部分类型
+
+一些学术内容是在部分访问。例如，用户可以一次访问一个章节或部分。引入Section_Type以根据访问的部分的类型提供事务的分类。例如，图书馆员可以使用“标题主报告”查看按Title和 Section_Type细分的使用情况。下表列出了COUNTER定义的Section_Types和Host_Types以及它们适用的报告。
+
+表3.q：Section_Type值列表
+
+| Section_Type | 描述                                     | Host_Types                                              | 报告 |
+| ------------ | ---------------------------------------- | ------------------------------------------------------- | ---- |
+| Article      | 文章，例如期刊，百科全书或参考书         | Aggregated_Full_Content eJournal                        | TR   |
+| Book         | 一本完整的书，可以作为一个文件进行访问。 | Aggregated_Full_Content eBook eBook_Collection          | TR   |
+| Chapter      | 一本书的一章。                           | Aggregated_Full_Content eBook eBook_Collection          | TR   |
+| Other        | 列表中未另示的部分中提供的内容。         | Aggregated_Full_Content                                 | TR   |
+| Section      | 一组章节或文章。                         | Aggregated_Full_Content eBook eBook_Collection eJournal | TR   |
+
+### 3.3.4 指标类型
+
+Metric_Types代表所计数的活动的性质，可以分为搜索（Searches），访问（investigations），请求（Requests）和拒绝访问（Access Denied）。表3.r，3.s和3.t列出了Metric_Types和Host_Types以及它们适用的报告。
+
+#### 搜索（Searches）
+
+表3.r：搜索的Metric_Type类型列表
+
+| Metric_Type                     | 描述                                                         | Host_Types                                                   | 报告     |
+| ------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------- |
+| 常规搜索<br/>Searches_Regular   | 针对用户选择在UI界面上返回结果的搜索次数。由用户负责选择搜索的数据库或者数据库集。此度量标准仅适用于在数据库级别跟踪的使用情况，而不显示平台级别的。 | A&I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection | DR DR_D1 |
+| 自动搜索<br/>Searches_Automated | 在主机站点或发现服务上进行的搜索，结果在主机UI中返回，无需用户选择数据库就可以搜索多个数据库。此度量标准仅适用于在数据库级别跟踪的使用情况，在平台级别不显示。 | A&I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection | DR DR_D1 |
+| 联合搜索<br/>Searches_Federated | 由联合搜索引擎进行的搜索，其中搜索活动是通过客户端-服务器技术远程进行的。此度量标准仅适用于在数据库级别跟踪的使用情况，而在平台级别不显示。 | A&I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection | DR DR_D1 |
+| 平台搜索<br/>Searches_Platform  | 由用户执行并在平台级别捕获的搜索。不论搜索涉及的数据库数量如何，每个用户启动的搜索都只能计数一次。该指标仅适用于平台报告。 | All Host_Types:<br/>A&I_Database Aggregated_Full_Content Data_Repository* Discovery_Service eBook eBook_Collection eJournal Full_Content_Database Multimedia Multimedia_Collection Repository* Scholarly_Collaboration_Network | PR PR_P1 |
+
+*存储库应该提供这些Metric_Type。
+
+**项和标题的访问和请求**
+
+这组Metric_Types代表检索了内容项（请求）或访问了有关内容项的信息（例如摘要）的活动。可以归属于内容项的任何用户活动都将被视为访问，包括下载或查看该项。请求仅限于与检索或查看内容项本身有关的用户活动。下图提供了访问和请求之间关系的图形表示。
+
+图3e：访问与请求之间的关系
+
+![](img\Picture1-2.png)
+
+**总计，唯一项和唯一标题**
+
+R5还引入了唯一项和唯一标题的概念。以Total开头的Metric_Types与R4的度量非常相似，即，如果在用户会话中多次访问给定的文章，书籍或书籍章节，则该指标将增加访问内容项的次数（过滤了双击行为导致的重复计数）。
+
+R5中引入了Unique_Item度量标准，以帮助消除不同风格的用户界面可能对使用计数产生的影响。使用R5，如果在给定的用户会话中多次访问单个文章，则相应的Unique_Item指标只能增加1，以简单地指示在会话中访问了该内容项。
+
+R5中引入了Unique_Title指标，以帮助规范电子书指标。由于可以将整本电子书下载为单个PDF或作为单独的章节，因此R4的BR1（书籍下载）和BR2（章节下载）的计数是不可比的。使用R5，无论在给定的用户会话中访问了多少（或多少次）章节，该书的Unique_Title指标都只会增加1 。无论平台的性质以及电子书内容的交付方式如何，Unique_Title指标均提供可比较的电子书指标。
+
+Unique_Title指标不得用于Book以外的Data_Type，因为它们对它们没有意义。如果一本书同时包含OA_Gold和Controlled部分或具有不同YOP的部分，则必须按Access_Type和YOP细分使用情况，以使报告之间的总计数，包括和不包括这些列/元素保持一致。
+
+表3.s：请求和访问的Metric_Type列表
+
+| Metric_Type                 | 描述                                                         | Host_Types                                                   | 报告                                                         |
+| --------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Total_Item_Investigations   | 内容项或内容项相关的信息被访问的次数。双击过滤器将应用于这些事务。内容项可以是文章，书籍的章节或者多媒体文件。 | All Host_Types:<br/>A&I_Database Aggregated_Full_Content Data_Repository* Discovery_Service<br/>eBook<br/>eBook_Collection<br/>eJournal<br/>Full_Content_Database Multimedia Multimedia_Collection Repository* Scholarly_Collaboration_Network | PR, DR, TR, IR<br/>DR_D1, TR_B3, TR_J3                       |
+| Unique_Item_Investigations  | 用户会话中访问的唯一内容项的数量。内容项可以是文章，书籍的章节或者多媒体文件。 | All Host_Types:<br/>A&I_Database Aggregated_Full_Content Data_Repository* Discovery_Service<br/>eBook<br/>eBook_Collection<br/>eJournal Full_Content_Database Multimedia Multimedia_Collection Repository* Scholarly_Collaboration_Network | PR, DR, TR, IR<br/>TR_B3, TR_J3                              |
+| Unique_Title_Investigations | 用户会话中访问的唯一标题的数量。标题可以是书。               | A&I_Database Aggregated_Full_Content Discovery_Service eBook eBook_Collection | PR, DR, TR TR_B3                                             |
+| Total_Item_Requests         | 请求内容项的总次数（即，下载或查看全文或内容）。双击过滤器将应用于这些事务。内容项可以是文章，书籍的章节或者多媒体文件。 | Aggregated_Full_Content Data_Repository<br/>eBook<br/>eBook_Collection<br/>eJournal Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network | PR, DR, TR, IR PR_P1, DR_D1, TR_B1, TR_B3, TR_J1, TR_J3, TR_J4, IR_A1, IR_M1 |
+| Unique_Item_Requests        | 用户会话中请求的唯一内容项的数量。内容项可以是文章，书籍的章节或者多媒体文件。 | Aggregated_Full_Content Data_Repository<br/>eBook<br/>eBook_Collection<br/>eJournal<br/>Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network | PR, DR, TR, IR PR_P1, TR_B3, TR_J1, TR_J3, TR_J4, IR_A1      |
+| Unique_Title_Requests       | 用户会话中请求的唯一标题的数量。标题可以是书。               | Aggregated_Full_Content eBook eBook_Collection               | PR, DR, TR PR_P1, TR_B1, TR_B3                               |
+
+*存储库应该提供这些Metric_Type。
+
+**拒绝访问**
+
+表3.t：拒绝访问的Metric_Type类型列表
+
+| Metric_Type    | 描述                                                         | Host_Types                                                   | 报告                               |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------------------- |
+| No_License     | 由于用户所在的机构没有内容许可，因此拒绝访问的次数。双击过滤将应用于此Metric_Type。<br/>请注意，如果用户自动重定向到摘要，则该操作将被计为No_License以及Item_Investigation。 | A&I_Database Aggregated_Full_Content Discovery_Service<br/>eBook<br/>eBook_Collection<br/>eJournal<br/>Full_Content_Database Multimedia Multimedia_Collection Scholarly_Collaboration_Network | DR, TR, IR<br/>DR_D2, TR_B2, TR_J2 |
+| Limit_Exceeded | 由于超出了用户机构许可的同时使用用户限制，因此拒绝访问的次数。双击过滤将应用于此Metric_Type。 | A&I_Database Aggregated_Full_Content Discovery_Service eBook eBook_Collection eJournal Full_Content_Database Multimedia Multimedia_Collection Scholarly_Collaboration_Network | DR, TR, IR DR_D2, TR_B2, TR_J2     |
