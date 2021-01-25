@@ -215,7 +215,7 @@ R5报告能够以表格形式或通过COUNTER_SUSHI API以机器可读数据（J
 
 #### 项和报告属性
 
-表3.I：项和报告属性的元素
+表3.l：项和报告属性的元素
 
 | 元素名称      | 描述                                                         | 报告                                  | 示例               |
 | ------------- | ------------------------------------------------------------ | ------------------------------------- | ------------------ |
@@ -241,3 +241,54 @@ R5报告能够以表格形式或通过COUNTER_SUSHI API以机器可读数据（J
 | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------- |
 | Reporting_Period_Total | 该行涵盖所有月份的总使用量。注意，此元素不出现在JSON报告中，作为代替，JSON格式提供一个粒度报告属性。详细信息，请参见第3.3.8节。 | All reports: PR, DR, TR, IR<br/>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | 123456   |
 | *Mmm-yyyy*             | 报告涵盖的每月使用情况的一系列列。格式为*Mmm-yyyy*。 注意：在JSON格式中，这由每个月的Begin_Date和End_Date日期元素表示。 | All reports: PR, DR, TR, IR<br/>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | May-2016 |
+
+## 3.3 COUNTER报告常见属性和元素
+
+COUNTER行为准则的早期版本侧重于与期刊相关的使用情况统计。之后书籍，文章多媒体集也被加入其中。R5进一步将COUNTER的范围扩展到研究数据和社交媒体领域。为了使用单一的、一致的、连贯的行为准则管理逐步扩大的领域，添加了一些新的元素和属性。
+
+### 3.3.1 载体类型
+
+使用报告支持许多不同的内容载体类型，如eBook, A&I_Database, eJournal等等。使用情况报告的需求因Host_Type而异。为了适应这种差异，R5定义了一组Host_Type类别。尽管Host_Type未出现在COUNTER报告中，但实践准则在本文档中始终使用Host_Type，以帮助内容提供者识别哪些报告，元素，度量标准类型和属性与它们相关。Host_Types是：
+
+表3.o：Host_Type值列表
+
+| Host_Type                       | 描述                                                         | 示例                                                         |
+| ------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| A&I_Database                    | 提供对包含支持搜索的学术文章的摘要和索引信息的数据库的访问。 | APA<br/>EBSCOhost <br/>ProQuest                              |
+| Aggregated_Full_Content         | 提供对聚合预设数据库的全文和其他在数据库许可的上下文环境中访问的内容。 | EBSCOhost ProQuest                                           |
+| Data_Repository                 | 包括学科资料库，机构等。                                     | UK Data Service – ReShare<br/>Figshare<br/>DSpace<br/>Eprints |
+| Discovery_Service               | 通过提供对文章、书籍和其他元数据的主要索引的访问，帮助用户发现学术内容。 | EBSCOhost (EDS) ProQuest (Primo/Summon)                      |
+| eBook                           | 提供对电子书内容（内容是可单独获取的电子书或打包的电子书）的访问 | EB<br/>EBSCOhost<br/>ScienceDirect                           |
+| eBook_Collection                | 提供对电子书集的访问（内容以固定集合的形式售卖，就像数据库一样）。 | EBSCOhost                                                    |
+| eJournal                        | 提供对在线连载物（期刊、会议、报纸等等）的访问（内容是可单独获取的标题或包）。 | ScienceDirect                                                |
+| Full_Content_Database           | 提供对数据库的访问，这些数据库是不属于系列或专题的内容项的集合。(i.e. 非聚合的). | Cochrane                                                     |
+| Multimedia                      | 提供对音频、视频和其他多媒体内容的访问。                     | Alexander Street Press                                       |
+| Multimedia_Collection           | 提供对能像数据库一样售卖和访问的多媒体材料的访问。           |                                                              |
+| Repository                      | 提供查阅机构研究成果的途径。包括学科资料库、机构、部门等。   | Cranfield CERES                                              |
+| Scholarly_Collaboration_Network | 一种研究人员用来分享他们工作的信息的服务。                   | Mendeley Reddit/science                                      |
+
+请注意，给定的内容载体可能具有不同的host_type类型，并希望提供适用于所有类型的报告、度量类型、元素和属性。比如， EBSCOhost可以被分类为 A&I_Database, Aggregated_Full_Content, Discovery_Service, eBook和eBook_Collection。
+
+### 3.3.2 数据类型
+
+R5以多种形式报告学术信息。这些形式被称作数据了类型**Data_Type**，在下表中列出，同时列出了载体类型**Host_Type**以及它们适用的报告。所有的Data_type都应用于平台报告，因为它们汇总了平台上的使用情况。注意，表格仅列出了为了合规需要提供一或多个报告的Host_Types，但是内容提供者可能提供额外的报告。例如，Host_Type eJournal也可以提供IR和IR_A1，然后在这些报告中使用Data_Type Article。
+
+表 3.p: Date_Type的值
+
+| Data_Type               | 描述                                                         | Host_Types                                                   | 报告                                                    |
+| ----------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------- |
+| Article                 | 一篇文章，通常发表在期刊或参考书上。当文章是项时Data_Type Article只适用于项报告，在标题报告中用Section_Type表示。 | Repository Scholarly_Collaboration_Network                   | PR, IR<br/>PR_P1, IR_A1                                 |
+| Book                    | 论文著作                                                     | A&I_Database Aggregated_Full_Content Discovery_Service eBook eBook_Collection Repository Scholarly_Collaboration_Network | PR, DR, TR, IR<br/>PR_P1, DR_D1, TR_B1, TR_B2, TR_B3    |
+| Book_Segment            | 书的一部分(如章节、章节等)。注意，Data_Type Book_Segment仅适用于当书的一部分是项时的项目报告，在Title报告中，这由Section_Type表示。 | Repository Scholarly_Collaboration_Network                   | PR, IR<br/>PR_P1                                        |
+| Database                | 在数据库的上下文中搜索和访问内容的固定数据库。载体上的给定项可能在多个数据库中，但事务必须归属于特定的数据库。 注意，Data_Type Database只适用于数据库级别的搜索和拒绝访问，以及Full_Content_Databases的访问和请求。 | A&I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection | PR, DR<br/>PR_P1, DR_D1, DR_D2                          |
+| Dataset                 | 一个数据集                                                   | Data_Repository Repository                                   | PR, IR<br/>PR_P1                                        |
+| Journal                 | 作为杂志或杂志连续出版的文本内容。                           | A&I_Database Aggregated_Full_Content Discovery_Service eJournal Repository | PR, DR, TR, IR PR_P1, DR_D1, TR_J1, TR_J2, TR_J3, TR_J4 |
+| Multimedia              | 多媒体内容，如音频，图片，音频流，视频流和视频。             | Multimedia Multimedia_Collection                             | PR, DR, IR PR_P1, DR_D1, IR_M1                          |
+| Newspaper_or_Newsletter | 在报纸或通讯上连续刊登的文本内容。                           | A&I_Database Aggregated_Full_Content Discovery_Service Repository | PR, DR, TR, IR PR_P1, DR_D1                             |
+| Other                   | 无法被分类的内容                                             | A&I_Database Aggregated_Full_Content Discovery_Service Repository | PR, DR, TR, IR PR_P1, DR_D1                             |
+| Platform                | 一个可以反映多个Data_Types使用情况的内容平台。注意，Data_Type平台只适用于Searches_Platform。 | All Host_Types: A&I_Database Aggregated_Full_Content Data_Repository Discovery_Service eBook eBook_Collection eJournal Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network | PR<br/>PR_P1                                            |
+| Report                  | 一个报告。                                                   | A&I_Database Aggregated_Full_Content Discovery_Service Repository | PR, DR, TR, IR PR_P1, DR_D1                             |
+| Repository_Item         | 存储库中存储的项的一种通用分类。                             | Repository                                                   | PR, IR PR_P1                                            |
+| Thesis_or_Dissertation  | 论文或学术演讲                                               | A&I_Database Aggregated_Full_Content Discovery_Service Repository | PR, DR, TR, IR PR_P1, DR_D1                             |
+
+Full_Content_Databases也可以在主标题报告中使用Data_Type Database。所有其他Host_Types必须报告访问和请求，或者是标题级别的Data_Types(如journa, book, from Host_Type A&I_Database, Aggregated_Full_Content, Discovery_Service, eBook, eBook_Collection 和 eJournal)，或项级别的Data_Types(如 article, Multimedia for a video from Host_Type Data_Repository, Multimedia, Multimedia_Collection, Repository和Scholarly_Collaboration_Network)。必须在需要合规的所有报告中使用这些Data_Types，以确保报告的一致性。
