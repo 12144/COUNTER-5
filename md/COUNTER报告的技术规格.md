@@ -115,10 +115,10 @@ R5报告能够以表格形式或通过COUNTER_SUSHI API以机器可读数据（J
 | Report_ID         | 报告的唯一标识符                                             | TR_J1                                                        |
 | Release           | 此报告遵循的COUNTER版本。                                    | 5                                                            |
 | Institution_Name  | 对于基于订阅的服务，是使用所属的机构的名称。对于OA出版商和存储库，无法确定各个机构的使用情况，应将使用情况归于“（全世界）The world”。 | Mt. Laurel University                                        |
-| Institution_ID    | 一系列标识符，以*{namespace}*：*{value}*的格式表示机构。多个标识符用分号（“;”）分隔。允许的标识符命名空间是ISIL，ISNI，OCLC，对于由内容提供商分配的本地标识符，则为内容提供商的平台ID。 | ISNI:0000000419369078; pubsiteA:PrncU                        |
+| Institution_ID    | 一系列标识符，以*{namespace}*：*{value}*的格式表示机构。多个标识符用分号-空格(“; ”)分隔。允许的标识符命名空间是ISIL，ISNI，OCLC，对于由内容提供商分配的本地标识符，则为内容提供商的平台ID。 | ISNI:0000000419369078; pubsiteA:PrncU                        |
 | Metric_Types      | 以分号分隔的指标类型列表。请注意，即使请求了Metric_Type，但如果没有报告项使用该类型，则它也可能不包含在报告正文中。 | Unique_Item_Investigations; Unique_Item_Requests             |
-| Report_Filters    | 应用于使用报告的一系列过滤器，但**Metric_Type**，**Begin_Date**和**End_Date**除外（它们在表格报告中的单独行中显示，以方便阅读）。通常，过滤器会影响报告的使用量。过滤器以*{filter name}*=*{filter value}*格式出现，多个过滤器以分号(";")分隔，单个过滤器的多个值以竖线分隔符("\|")分隔。 | Access_Type=Controlled; Access_Method=Regular                |
-| Report_Attributes | 应用于报告的一系列报告属性。通常，报告属性会影响使用情况的显示方式，但不会改变总数。属性以*{attribute name}*=*{attribute value}*格式出现，多个属性以分号(";")分隔，单个属性的多个值以竖线分隔符("\|")分隔。 | Attributes_To_Show=Access_Type                               |
+| Report_Filters    | 应用于使用报告的一系列过滤器，但**Metric_Type**，**Begin_Date**和**End_Date**除外（它们在表格报告中的单独行中显示，以方便阅读）。通常，过滤器会影响报告的使用量。过滤器以*{filter name}*=*{filter value}*格式出现，多个过滤器以分号-空格(“; ”)分隔，单个过滤器的多个值以竖线分隔符("\|")分隔。 | Access_Type=Controlled; Access_Method=Regular                |
+| Report_Attributes | 应用于报告的一系列报告属性。通常，报告属性会影响使用情况的显示方式，但不会改变总数。属性以*{attribute name}*=*{attribute value}*格式出现，多个属性以分号-空格(“; ”)分隔，单个属性的多个值以竖线分隔符("\|")分隔。 | Attributes_To_Show=Access_Type                               |
 | Exceptions        | 指明所请求的使用情况与报告中呈现的使用情况之间的一些差异。异常值的格式为*{Exception Number}*: *{Exception Description}* ，多个异常值之间用分号-空格（“; ”）分隔。异常编号和异常描述必须与[附录F的](https://www.projectcounter.org/appendix-f-handling-errors-exceptions/)表F.1中提供的值匹配。数据是可选的。<br/>请注意，对于表格报告，只有少数异常会被应用。 | 3031: Usage Not Ready for Requested Dates (request was for 2016-01-01 to 2016-12-31; however, usage is only available to 2016-08-31) |
 | Reporting_Period  | 报告使用的日期范围, 格式为: “Begin_Date=*yyyy-mm-dd*; End_Date=*yyyy-mm-dd*”. | Begin_Date=2016-01-01; End_Date=2016-08-30                   |
 | Created           | 使用的日期和时间，格式为RFC3339日期时间格式（*yyyy-mm-ddThh：mm：ssZ*）。 | 2016-10-11T14:37:15Z                                         |
@@ -126,3 +126,118 @@ R5报告能够以表格形式或通过COUNTER_SUSHI API以机器可读数据（J
 | (blank row)       | 第13行必须为空白。                                           |                                                              |
 
 ### 3.2.2 报告正文
+
+图3.b和3.c显示了包含大量数据元素的COUNTER报告的正文。并非所有报告都将包含所有元素。格式化报告时，请保持以下元素的顺序，但仅包括与该报告相关的那些元素。以下讨论将提供有关元素可以包含在哪些报告中的指南。有关元素到报告的广泛映射，请参见第4节。
+
+#### 报告项说明
+
+每个COUNTER报告都会有描述其报告项的列。
+
+表3.g：描述报告项的元素
+
+| 元素名称     | 描述                                                         | 报告                                                         | 示例                                                      |
+| ------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | --------------------------------------------------------- |
+| Database     | 正在报告其使用情况的数据库的名称。仅适用于数据库报告。       | DR<br/>DR_D1, DR_D2                                          | MEDLINE                                                   |
+| Title        | 报告其使用情况的书籍或期刊的名称。仅适用于标题报告。         | TR<br/>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4       | Journal of Economics Gone with the Wind                   |
+| Item         | 报告其使用情况的文章，书籍章节，多媒体作品或存储库项目的名称。仅适用于项目报告。 | IR<br/>IR_A1, IR_M1                                          | CRISPR gene-editing tested in a person for the first time |
+| Publisher    | 内容项的发行商的名称。请注意，当内容项是数据库时，发布者将是创建该数据库的组织。 | DR, TR, IR <br/>DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | Taylor & Francis APA                                      |
+| Publisher_ID | 发行商的唯一标识符，格式为*{namespace}*:*{value}*。当发行商有多个标识符时，将所有标识符以分号-空格("; ")分隔，但是每种类型仅限一个。允许的标识符名称空间是ISNI，对于内容提供商分配的本地标识符，是内容提供商的平台ID。 | DR, TR, IR                              DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | ISNI:1234123412341234 ebscohost:PubX                      |
+
+#### 平台
+
+报告中的下一列标识活动发生的平台。
+
+表3.h：标识平台的元素
+
+| 元素名称 | 描述                                                         | 报告                                                         | 示例                             |
+| -------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------- |
+| Platform | 标识活动发生的平台/内容宿主。请注意，如果个别标题或内容组有自己的品牌用户体验，但驻留在一个公共宿主上，则必须使用底层公共宿主的标识作为平台。 | All reports: PR, DR, TR, IR<br/>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | EBSCOhost ProQuest ScienceDirect |
+
+#### 报告项标识符
+
+平台右侧的列进一步标识了要报告的项目。
+
+表3.i：报告项标识符的元素
+
+| 元素名称         | 描述                                                         | 报告                                                         | 示例                                   |
+| ---------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------------------------------------- |
+| Authors          | 正在被报告的作品的作者，格式为{author name}* (*{author identifier}*) , author identifier 的格式为 *{namespace}*:*{value}*. 允许的标识符名称空间是ISNI和ORCID。 最多应包括三位作者，且多位作者之间用分号-空格（“; ”）隔开。<br/>请注意，此元素仅在表格报表中使用，在JSON报表中，作者使用Type Author表示为Item_Contributors | IR<br/>IR_A1                                                 | John Smith (ORCID:0000-0001-2345-6789) |
+| Publication_Date | 作品的出版日期，格式为*yyyy-mm-dd*。                         | IR <br/>IR_A1                                                | 2018-09-05                             |
+| Article_Version  | ALPSP/NISO码指出父作品的版本。可能的值是 Accepted Manuscript, Version of Record, Corrected Version of Record, and Enhanced Version of Record的代码。 | IR<br/>IR_A1                                                 | VoR(Version of Record)                 |
+| DOI              | 被报告项的数字对象标识符，格式为*{DOI prefix}*/*{DOI suffix}*. | TR, IR<br/>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | 10.1629/uksg.434                       |
+| Proprietary_ID   | 内容提供商为要报告的项分配的专有ID 。格式为*{namespace}*:*{value}* ,namespace是分配专有ID的宿主的platform ID。 | DR, TR, IR<br/>DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | publisherA:jnrlCode123                 |
+| ISBN             | 国际标准书号，格式为ISBN-13，带连字符。                      | TR, IR<br/>TR_B1, TR_B2, TR_B3                               | 978-3-16-148410-0                      |
+| Print_ISSN       | 分配给连载出版物的印刷实例的国际标准序列号，格式为*nnnn-nnn [nX]*。 | TR, IR<br/>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1 | 0953-1513                              |
+| Online_ISSN      | 分配给连载出版物的联机实例的国际标准序列号，格式为*nnnn-nnn [nX]*。 | TR, IR TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1 | 2048-7754                              |
+| Linking_ISSN     | 国际标准序列号，将分配给连载出版物所有实例的ISSN链接，格式为*nnnn-nnn [nX]*（仅JSON报告）。 | TR, IR<br/>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1 | 0953-1513                              |
+| URI              | 通用资源标识符，根据RFC 3986的有效URL或URN。                 | TR, IR<br/>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |                                        |
+
+#### 父项说明和标识符
+
+当报告诸如文章和书籍章节之类的内容项的使用情况时，通常需要标识该项的父项，例如其所属的期刊或书籍。下一组分组标识了父级，并由一小部分报告使用。
+
+表3.j：描述父项的元素
+
+| 元素名称                | 描述                                                         | 报告     | 示例                                                         |
+| ----------------------- | ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
+| Parent_Title            | 父项的标题。                                                 | IR IR_A1 | The Serials Librarian                                        |
+| Parent_Authors          | 父作品的作者。格式参见表3.i中的Authors元素。                 | IR IR_A1 |                                                              |
+| Parent_Publication_Date | 父作品的发布日期，格式为*yyyy-mm-dd*。                       | IR       |                                                              |
+| Parent_Article_Version  | 指示父作品版本的ALPSP / NISO代码。可能的值是Accepted Manuscript, Version of Record, Corrected Version of Record和Enhanced Version of Record的码值。 | IR IR_A1 | VoR                                                          |
+| Parent_Data_Type        | 标识父母的类型。                                             | IR       | Journal                                                      |
+| Parent_DOI              | 分配给父项的DOI，格式为*{DOI prefix}*/*{DOI suffix}*。       | IR IR_A1 |                                                              |
+| Parent_Proprietary_ID   | 标识父项的专有ID 。格式为*{namespace}*:*{value}* ,namespace是分配专有ID的宿主的platform ID。 | IR IR_A1 | TandF:wser20                                                 |
+| Parent_ISBN             | 父项的ISBN，格式为ISBN-13，带连字符。                        | IR       |                                                              |
+| Parent_Print_ISSN       | 父项的印刷ISBN，格式为*nnnn-nnn [nX]*。                      | IR IR_A1 | 0361-526X                                                    |
+| Parent_Online_ISSN      | 父项的在线ISSN格式为*nnnn-nnn[nX]*。                         | IR IR_A1 | 1541-1095                                                    |
+| Parent_URI              | 父项的URI（有效的URL或RFC 3986规定的URN）。                  | IR IR_A1 | https://www.tandfonline.com/action/journalInformation?journalCode=wser20 |
+
+#### 组件项描述和标识符
+
+存储库通常为给定存储库项存储多个组件。这些组件可以采用多个文件或数据集的形式，可以被标识
+
+并在“主报告”中分别报告使用情况。请注意，可能仅对于**Total_Item_Investigations**和**Total_Item_Request**报告组件使用情况。对于其他**Metric_Types**，使用情况不能按组件细分，且对应的单元格必须是空的。
+
+表3.k：描述组件项的元素
+
+| 元素名称                   | 描述                                                         | 报告 | 示例 |
+| -------------------------- | ------------------------------------------------------------ | ---- | ---- |
+| Component_Title            | 组件项的名称或标题。                                         | IR   |      |
+| Component_Authors          | 组件项的作者。格式参见表3.i中的Authors元素。                 | IR   |      |
+| Component_Publication_Date | 组件项的发布日期，格式为*yyyy-mm-dd*。                       | IR   |      |
+| Component_Data_Type        | 组件项目的数据类型。                                         | IR   |      |
+| Component_DOI              | 组件项的DOI，格式为*{DOI prefix}*/*{DOI suffix}*。           | IR   |      |
+| Component_Proprietary_ID   | 存储库分配的专有ID，用于唯一标识组件。格式为{namespace}：{value}其中，namespace是分配了专有标识符的存储库的平台ID 。 | IR   |      |
+| Component_ISBN             | 组件项目的ISBN，格式为ISBN-13，带连字符。                    | IR   |      |
+| Component_Print_ISSN       | 组件项的印刷ISBN，格式为*nnnn-nnn [nX]*。                    | IR   |      |
+| Component_Online_ISSN      | 组件项的在线ISSN，格式为*nnnn-nnn[nX]*                       | IR   |      |
+| Component_URI              | 组件项的URI（有效的URL或RFC 3986规定的URN）。                | IR   |      |
+
+#### 项和报告属性
+
+表3.I：项和报告属性的元素
+
+| 元素名称      | 描述                                                         | 报告                                  | 示例               |
+| ------------- | ------------------------------------------------------------ | ------------------------------------- | ------------------ |
+| Data_Type     | 使用的内容的类型。<br/>更多详细信息参见3.3.2。               | PR, DR, TR, IR                        | Book Journal       |
+| Section_Type  | 当按块或节访问内容时，此属性描述内容单元的性质。有关更多详细信息，请参见3.3.3 | TR                                    | Article Chapter    |
+| YOP           | 报告的项的发行年份。<br/>有关更多详细信息，请参见3.3.7。     | TR, IR<br/>TR_B1, TR_B2, TR_B3, TR_J4 | 1997               |
+| Access_Type   | 有关更多详细信息，请参见3.3.5。                              | TR, IR<br/> TR_B3, TR_J3, IR_A1       | Controlled OA_Gold |
+| Access_Method | 有关更多详细信息，请参见3.3.6。                              | PR, DR, TR, IR                        | Regular TDM        |
+
+#### 指标类型
+
+表3.m：Metric_Type的报告元素
+
+| 元素名称    | 描述                                                     | 报告                                                         | 示例                      |
+| ----------- | -------------------------------------------------------- | ------------------------------------------------------------ | ------------------------- |
+| Metric_Type | 被计数的活动的类型。<br/>有关更多详细信息，请参见3.3.4。 | All reports: PR, DR, TR, IR<br/>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | Total_Item_Investigations |
+
+#### 使用数据
+
+表3.n：使用数据元素
+
+| 元素                   | 描述                                                         | 报告                                                         | 示例     |
+| ---------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------- |
+| Reporting_Period_Total | 该行涵盖所有月份的总使用量。注意，此元素不出现在JSON报告中，作为代替，JSON格式提供一个粒度报告属性。详细信息，请参见第3.3.8节。 | All reports: PR, DR, TR, IR<br/>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | 123456   |
+| *Mmm-yyyy*             | 报告涵盖的每月使用情况的一系列列。格式为*Mmm-yyyy*。 注意：在JSON格式中，这由每个月的Begin_Date和End_Date日期元素表示。 | All reports: PR, DR, TR, IR<br/>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 | May-2016 |
