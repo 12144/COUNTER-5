@@ -363,3 +363,91 @@ Unique_Title指标不得用于Book以外的Data_Type，因为它们对它们没�
 | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ---------------------------------- |
 | No_License     | 由于用户所在的机构没有内容许可，因此拒绝访问的次数。双击过滤将应用于此Metric_Type。<br/>请注意，如果用户自动重定向到摘要，则该操作将被计为No_License以及Item_Investigation。 | A&I_Database Aggregated_Full_Content Discovery_Service<br/>eBook<br/>eBook_Collection<br/>eJournal<br/>Full_Content_Database Multimedia Multimedia_Collection Scholarly_Collaboration_Network | DR, TR, IR<br/>DR_D2, TR_B2, TR_J2 |
 | Limit_Exceeded | 由于超出了用户机构许可的同时使用用户限制，因此拒绝访问的次数。双击过滤将应用于此Metric_Type。 | A&I_Database Aggregated_Full_Content Discovery_Service eBook eBook_Collection eJournal Full_Content_Database Multimedia Multimedia_Collection Scholarly_Collaboration_Network | DR, TR, IR DR_D2, TR_B2, TR_J2     |
+
+### 3.3.5 访问类型
+
+为了跟踪许可内容的使用价值，图书馆员想知道有多少Open Access或其他免费可用内容被使用，以及有多少内容的使用是需要付费的。为了适应这种情况，R5引入了Access_Type属性，其值是Controlled，OA_Gold，OA_Delayed和Other_Free_To_Read。下表列出了Access_Types和Host_Types以及它们适用的报告。请注意，Access_Type与使用的平台的访问有关：如果在平台上限制了对Gold Open Access文章的访问（例如，因为该文章包含在仅供订阅者使用的聚合全文数据库中），则Access_Type是受控的。
+
+表3.u：Access_Type值列表
+
+| Access_Type        | 描述                                                         | Host_Types                                                   | 报告                                                         |
+| ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Controlled         | 在请求或调查时，内容项不开放（例如，在付费专栏后面），访问仅限于授权用户。 由于试用订阅/许可而导致的内容访问将被视为受控制。<br/>平台提供的可免费获得但不是OA_Gold类型的（如，出于营销目的的免费，或一你年后提供免费访问权）必须跟踪为Controlled。 | Aggregated_Full_Content Data_Repository<br/>eBook<br/>eBook_Collection<br/>eJournal<br/>Multimedia<br/>Repository Scholarly_Collaboration_Network | TR, IR<br/>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
+| OA_Gold            | 在用户请求或调查时，该内容项已获得Gold Open Access许可 (支付了文章费用或者由图书馆，社会或其他组织赞助了出版的可永久开放访问的内容）。内容项可能在混合出版物中，也可能在完全开放式出版物中。<br/>注意，延迟开放访问（在禁用期之后开放）的内容项，在实施OA_Delayed之前，当前必须分类为Controlled。 | Data_Repository<br/>eBook<br/>eJournal<br/>Multimedia<br/>Repository Scholarly_Collaboration_Network | TR, IR<br/>TR_B3, TR_J3, IR_A1, IR_M1                        |
+| OA_Delayed         | ***保留以备将来使用–请勿实施***<br/>用户请求或访问的内容项在禁用期过后可以开放访问使用。注意：此值只有在COUNTER批准并包含了COUNTER发布的实施时间表后才能使用。 |                                                              |                                                              |
+| Other_Free_To_Read | 在交易时，内容项可以免费阅读（不需要许可证），并且不符合OA_Gold Access_Type的条件。 | Data_Repository Repository                                   | IR IR_A1                                                     |
+
+### 3.3.6 访问方式
+
+为了跟踪出于文本和数据挖掘（TDM）的目的而访问的内容使用，并使该使用与正常使用分开，R5引入了Access_Method属性，其中包含Regular和TDM的值。下表列出了Access_Methods和Host_Types以及它们适用的报告。
+
+表3.v：Access_Method值列表
+
+| Access_Method | 描述                                                         | Host_Types                                                   | 报告                                                         |
+| ------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Regular       | 指代表典型用户行为的平台或内容宿主上的活动。                 | All Host_Types:<br/>A&I_Database Aggregated_Full_Content Data_Repository Discovery_Service<br/>eBook<br/>eBook_Collection<br/>eJournal<br/>Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network | All reports:<br/>PR, DR, TR, IR<br/>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
+| TDM           | 为了文本和数据挖掘而访问的内容和元数据，如，通过用于TDM的特定API。请注意，代表TDM活动的使用仅包括在主报告中。 | All Host_Types:<br/>A&I_Database Aggregated_Full_Content Data_Repository Discovery_Service<br/>eBook<br/>eBook_Collection<br/>eJournal<br/>Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network | PR, DR, TR, IR                                               |
+
+### 3.3.7 YOP
+
+还需要根据内容的时间来分析集合的使用情况。YOP属性表示发行的年份，并且必须针对所有的访问，请求和拒绝访问在标题和项报告中跟踪。下表列出了Host_Types，并报告了YOP属性适用于的属性。
+
+表3.w：YOP值
+
+| YOP    | 描述                                                         | Host_Types                                                   | 报告                                                         |
+| ------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| *yyyy* | 项的发行年份使用4为数字表示。如果某个内容项的在线版本发行日期与印刷版本不同，则使用记录中的版本的发行年份。如果不知道出版年份，则使用值0001。对于印刷中的文章（尚未分配给期刊），请使用值9999。 | Aggregated_Full_Content Data_Repository<br/>eBook<br/>eBook_Collection<br/>eJournal<br/>Multimedia<br/>Repository Scholarly_Collaboration_Network | TR, IR<br/>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
+
+### 3.3.8 报告过滤器和报告属性
+
+使用数据的自定义视图是通过对主报告应用报告过滤器和报告属性创建的。R5指定的标准视图是此类视图的示例。报告属性定义了报告中的列，报告过滤器过滤报告的行（记录值）。对于主报告，用户可以根据报告从特定的过滤器和属性集中进行选择，而对于标准视图，过滤器和属性是预先设置的，除了可选的平台过滤器。
+
+用于创建报告的过滤器和属性包含在报告头部中（除非使用默认值，在这种情况下，必须省略过滤器/属性），对于JSON报告，报告过滤器和报告属性是以名称/值对的形式表示，对于表格形式则是以Metric_Types, Reporting_Period, Report_Filters和Report_Attributes元素指定编码格式表示（编码格式见3.2.1节）。对于 COUNTER_SUSHI API每个过滤器/属性都以对应的小写形式作为参数传递给方法(详情查看 [COUNTER_SUSHI API Specification](https://app.swaggerhub.com/apis/COUNTER) )。
+
+下表显示了属性和过滤器以及（可能）出现在头部中的报告（使用默认值的标准视图除外）。
+
+表3.x：报告属性
+
+| Report Attribute          | Description                                                  | Reports                  |
+| ------------------------- | ------------------------------------------------------------ | ------------------------ |
+| Attributes_To_Show        | 要包括在报告中的可选列/元素的列表（默认值：无）。有关允许值，请参见第4.1.2、4.2.2、4.3.2和4.4.2节。请注意，不能单独选择组件和父列/元素，并且不得将其包括在列表中（请参见下面的**Include_Component_Details**和**Include_Parent_Details**属性）。 | PR, DR, TR, IR           |
+| Exclude_Monthly_Details   | 指定是否从报告中排除每月使用量的列。允许的值为False（默认）和True。此属性仅适用于表格报告。JSON报告的相应属性是Granularity。 | PR, DR, TR, IR (tabular) |
+| Granularity               | 指定要包括在报告中的使用情况数据的粒度。允许的值为“Month”（默认）和“Total”。此属性仅适用于JSON报告，表格报告的相应属性为Exclude_Monthly_Details。<br/>对于“总计”，每个**Item_Performance**元素代表所报告的时间段的汇总使用。要符合COUNTER标准就要支持月粒度，总计是可选的。 | PR, DR, TR, IR (JSON)    |
+| Include_Component_Details | 指定是否在报告中包括组件列/元素（请参见表3.k）。允许的值为False（默认）和True。 | IR                       |
+| Include_Parent_Details    | 指定是否在报告中包括父列/元素（请参见表3.j）。允许的值为False（默认）和True。 | IR                       |
+
+表3.y：报告过滤器
+
+| Report Filter       | Description                                                  | Reports                                                      |
+| ------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Access_Method       | 要包括其用法的Access_Method列表（默认值：全部）。有关允许/预设值，请参见第4.1.3、4.2.3、4.3.3和4.4.3节。 | All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
+| Access_Type         | 要包括其用法的Access_Type列表（默认值：全部）。有关允许/预设值，请参见第4.3.3和4.4.3节。 | TR, IR TR_B1, TR_B2, TR_J1, TR_J2, TR_J4, IR_A1              |
+| Begin_Date End_Date | 报告期的开始和结束。请注意，COUNTER_SUSHI API允许方法参数的格式为*yyyy-mm*，必须将其与报告标题的月份的第一天/最后一天一起扩展。对于表格报表，这些过滤器包含在Reporting_Period标头中，而不是Reporting_Filters标头中，以便于阅读。 | All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
+| Database            | 正在请求使用的特定数据库的名称（默认值：all）。对此过滤器的支持是可选的，但建议在报告网站上使用。 | DR                                                           |
+| Data_Type           | 要包括其的Data_Type列表（默认值：all）。有关允许/预设值，请参见第4.1.3、4.2.3、4.3.3和4.4.3节。 | PR, DR, TR, IR TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
+| Item_Contributor    | 请求使用的特定贡献者（作者）的标识符（默认值：all）。对此过滤器的支持是可选的，但建议在报告网站上使用。 | IR                                                           |
+| Item_ID             | 要求使用的特定项的标识符。对此过滤器的支持是可选的，但建议在报告网站上使用。 | TR, IR                                                       |
+| Metric_Type         | 要包括的Metric_Type列表（默认值：all）。有关允许/预设值，请参见第4.1.3、4.2.3、4.3.3和4.4.3节。对于表格报表，此过滤器包含在Metric_Types标头中，而不是Reporting_Filters标头中，以便于阅读。 | All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
+| Platform            | 适用于多个平台使用同一个接入点的情况。当不同平台使用相同的COUNTER_SUSHI API基础URL时，需要对每个请求都添加platform参数。在Web界面中，这对应于首先选择一个平台，然后仅为该平台创建报告。 | All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
+| Section_Type        | 要包括其用法的Section_Types列表（默认值：全部）。有关允许值，请参见第4.3.3节。 | TR                                                           |
+| YOP                 | 包含使用的发行年份范围（默认值：all）。对于COUNTER_SUSHI API，必须支持更复杂的过滤器值（年份和范围列表）。 | TR, IR                                                       |
+
+### 3.3.9 零使用
+
+并非所有的内容提供者或其他COUNTER报告提供者都将其COUNTER报告工具链接到其订阅数据库，因此R5报告不能包括基于订阅记录的零使用报告。包括所有内容（包括未订阅的内容）的零使用报告可能会使报告变得难以管理。[KBART自动化工作组](https://www.niso.org/standards-committees/kbart/kbart-automation)计划将解决图书馆识别零使用量的已订阅书名的需求。
+
+- 对于表格报告
+  - 省略Reporting_Period_Total为零的任何行。
+  - 如果Reporting_Period_Total不为零，但是包含月份的使用率为零，请将该月的单元格值设置为0。
+- 对于JSON报告
+  - 忽略计数为零的任何实例元素。
+  - 忽略没有至少一个实例元素的Performance元素。
+  - 忽略没有至少一个Performance元素的Report_Items元素。
+
+### 3.3.10 缺少和未知的字段值
+
+- 对于表格报告
+  - 如果字段值丢失或未知（例如，标题的ISBN不存在或未知），则该字段必须留为空白。为了清楚起见，该字段不得包含诸如“unknown”或“ n/a”之类的值。
+- 对于JSON报告
+  - 如果字段的值丢失或未知，并且COUNTER_SUSHI API规范（请参阅下面的[第8节](https://www.projectcounter.org/code-of-practice-five-sections/8-sushi-automated-report-harvesting/)）表明该字段是必需的，则该字段的值必须以合适的数据类型表示为空。
+  - 如果某个字段的值丢失或未知，并且根据COUNTER_SUSHI API规范不要求该字段，则必须从响应中省略该字段。
