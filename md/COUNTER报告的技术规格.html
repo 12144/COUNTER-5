@@ -1,0 +1,553 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>COUNTER报告的技术规格</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-require-zoom-fix foreignobject { font-size: var(--mermaid-font-zoom); }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+ :root {--mermaid-font-zoom:1.25em ;} 
+</style>
+</head>
+<body class='typora-export os-windows'>
+<div id='write'  class=''><h1><a name="30-counter报告的技术规格" class="md-header-anchor"></a><span>3.0 COUNTER报告的技术规格</span></h1><h2><a name="31-图书馆的counter报告" class="md-header-anchor"></a><span>3.1 图书馆的COUNTER报告</span></h2><p><span>R5的报告由四个主报告组成，这些主报告使馆员可以过滤和配置来为他们的使用数据创建自定义视图。R5还明确了标准视图（预设的过滤器/配置）。</span></p><p><span>为了达到合规性，内容提供商必须提供适用于他们的Host_Type的</span><strong><span>主报告</span></strong><span>和</span><strong><span>标准视图</span></strong><span>，始终为空的标准视图除外（比如不会发生被拒绝的情况，那么一个</span><strong><span>拒绝访问的标准视图</span></strong><span>就是始终为空的）。</span></p><p><span>内容提供者可以根据《行为准则》为报告设置的规则提供合规或自定义报告不需要的额外的主报告和标准视图。对于这些报告（见11.2节），不需要审核。</span></p><h3><a name="311-主报告" class="md-header-anchor"></a><span>3.1.1 主报告</span></h3><p><span>主报告包括所有相关指标和属性；它们旨在通过应用</span><strong><span>过滤器</span></strong><span>和其他配置选项进行自定义，从而使馆员可以创建针对其需求的报告。表3.a中显示了四个主报告以及它们需要的Report_ID，Report_Name和Host_Type。有关Host_Types的详细信息，请参见下面的3.3.1节。</span></p><p><span>表3.a 主报告</span></p><figure><table><thead><tr><th><span>Report_ID</span></th><th><span>Report_Name</span></th><th><span>Details</span></th><th><span>Host_Types</span></th></tr></thead><tbody><tr><td><span>PR</span></td><td><span>平台主报告（Platform Master Report）</span></td><td><span>可自定义的报告，总结了内容提供商平台上的活动，允许用户应用过滤器并选择其他配置选项。</span></td><td><span>All Host_Types: </span><br><span>A&amp;I_Database</span><br><span>Aggregated_Full_Content</span><br><span>Data_Repository*</span><br><span>Discovery_Service</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span><br><span>Full_Content_Database</span><br><span>Multimedia</span><br><span>Multimedia_Collection</span><br><span>Repository</span><br><span>Scholarly_Collaboration_Network</span></td></tr><tr><td><span>DR</span></td><td><span>数据库主报告（Database Master Report）</span></td><td><span>可定制的数据库详细活动报告，允许用户应用过滤器并选择其他配置选项。</span></td><td><span>A&amp;I_Database</span><br><span>Aggregated_Full_Content</span><br><span>Discovery_Service</span><br><span>eBook_Collection</span><br><span>Full_Content_Database</span><br><span>Multimedia_Collection</span></td></tr><tr><td><span>TR</span></td><td><span>标题主报告（Title Master Report）</span></td><td><span>可自定义的标题级别（期刊，书籍等）的详细活动报告，允许用户应用过滤器并选择其他配置选项。</span></td><td><span>Aggregated_Full_Content</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span></td></tr><tr><td><span>IR</span></td><td><span>项主报告（Item Master Report）</span></td><td><span>细粒度的可自定义报告，显示项（文章，章节，媒体对象等）级别的活动，允许用户应用过滤器并选择其他配置选项。</span></td><td><span>Data_Repository*</span><br><span>Multimedia</span><br><span>Repository</span><br><span>Scholarly_Collaboration_Network</span></td></tr></tbody></table></figure><h3><a name="312-标准视图" class="md-header-anchor"></a><span>3.1.2 标准视图</span></h3><p><span>标准视图的目标是提供一个主报告的预过滤视图集，覆盖了图书馆需要的最常见的集合。标准视图的Report_ID是从它们基于的主报表的Report_ID派生的。格式为</span><em><span>{Master Report_ID}</span></em><span> _ </span><em><span>{View ID}</span></em><span>。</span></p><h4><a name="3121-平台使用标准视图" class="md-header-anchor"></a><span>3.1.2.1 平台使用标准视图</span></h4><p><span>平台使用标准视图派生自平台主报告，提供给定的平台活动的总结以支持平台的评估，并提供高层次的统计数据来支持调查和对资助者汇报。</span></p><p><span>表 3.b: 平台使用标准视图</span></p><figure><table><thead><tr><th><span>Report_ID</span></th><th><span>Report_Name</span></th><th><span>Details</span></th><th><span>Host_Types</span></th></tr></thead><tbody><tr><td><span>PR_P1</span></td><td><span>平台使用（Platform Usage）</span></td><td><span>以指标类型（Metric_Type）总结的平台级别使用情况 .</span></td><td><span>All Host_Types:</span><br><span>A&amp;I_Database</span><br><span>Aggregated_Full_Content</span><br><span>Data_Repository*</span><br><span>Discovery_Service</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span><br><span>Full_Content_Database</span><br><span>Multimedia</span><br><span>Multimedia_Collection</span><br><span>Repository</span><br><span>Scholarly_Collaboration_Network</span></td></tr></tbody></table></figure><p><span>有关平台使用报告的详细信息，请参见下面的第4.2节。</span></p><h4><a name="3122-数据库使用标准视图" class="md-header-anchor"></a><span>3.1.2.2 数据库使用标准视图</span></h4><p><span>数据库使用标准视图支持评估给定资源数据库（例如，全文数据库，A＆I数据库或多媒体集合）的价值。</span></p><p><span>表 3.c: 数据库使用标准视图</span></p><figure><table><thead><tr><th><span>Report_ID</span></th><th><span>Report_Name</span></th><th><span>Details</span></th><th><span>Host_Types</span></th></tr></thead><tbody><tr><td><span>DR_D1</span></td><td><span>Database Search and Item Usage</span></td><td><span>评估数据库所需的关键搜索，访问和请求指标报告</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection</span></td></tr><tr><td><span>DR_D2</span></td><td><span>Database Access Denied</span></td><td><span>用户因为同时使用许可证超出限制，或者他们的机构没有这个数据库的许可证而被拒绝访问的数据库拒绝访问活动报告。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection</span></td></tr></tbody></table></figure><p><span>有关数据库使用报告的详细信息，请参见下面的第4.2节。</span></p><h4><a name="3123-标题使用标准视图" class="md-header-anchor"></a><span>3.1.2.3 标题使用标准视图</span></h4><p><span>标题使用标准视图用于支持对连载（例如期刊，杂志或报纸）或专著（例如书籍，电子书，教科书或参考书目）的标题的价值进行评估。</span></p><p><span>表 3.d: 标题使用标准视图</span></p><figure><table><thead><tr><th><span>Report_ID</span></th><th><span>Report_Name</span></th><th><span>Details</span></th><th><span>Host_Types</span></th></tr></thead><tbody><tr><td><span>TR_B1</span></td><td><span>Book Requests (Excluding OA_Gold)</span></td><td><span>报告书籍的全文活动，不包括Gold Open Access内容，如 </span><strong><span>Total_Item_Requests</span></strong><span>和</span><strong><span>Unique_Title_Requests</span></strong><span>。</span><br><strong><span>Unique_Title_Requests</span></strong><span>提供了跨图书平台的可比较方法。</span><strong><span>Total_Item_Requests</span></strong><span>显示总体活动；但是，根据内容的交付方式（例如，作为一本完整的书还是按章节交付），站点之间的数量将有很大不同。</span></td><td><span>Aggregated_Full_Content</span><br><span>eBook</span><br><span>eBook_Collection</span></td></tr><tr><td><span>TR_B2</span></td><td><span>Book Access Denied</span></td><td><span>用户因为同时使用许可证超出限制，或者他们的机构没有这个书籍的许可证而被拒绝访问的书籍拒绝访问活动报告。</span></td><td><span>Aggregated_Full_Content</span><br><span>eBook</span><br><span>eBook_Collection</span></td></tr><tr><td><span>TR_B3</span></td><td><span>Book Usage by Access Type</span></td><td><span>书籍使用的报告，显示了按Access_Type细分的所有适用的Metric_Type。</span></td><td><span>Aggregated_Full_Content</span><br><span>eBook</span><br><span>eBook_Collection</span></td></tr><tr><td><span>TR_J1</span></td><td><span>Journal Requests (Excluding OA_Gold)</span></td><td><span>期刊内容使用报告, 不包括Gold Open Access内容，如 </span><strong><span>Total_Item_Requests</span></strong><span>和</span><strong><span>Unique_Item_Requests</span></strong><span>。</span><br><strong><span>Unique_Item_Requests</span></strong><span>通过减少自动显示HTML全文但用户随后访问PDF版本时产生的重复访问影响，在整个期刊平台上提供可比较的方法。</span><strong><span>Total_Item_Requests</span></strong><span>显示总体活动。</span></td><td><span>Aggregated_Full_Content eJournal</span></td></tr><tr><td><span>TR_J2</span></td><td><span>Journal Access Denied</span></td><td><span>用户因为同时使用许可证超出限制，或者他们的机构没有这个标题的许可证而被拒绝访问的期刊拒绝访问活动报告。</span></td><td><span>Aggregated_Full_Content eJournal</span></td></tr><tr><td><span>TR_J3</span></td><td><span>Journal Usage by Access Type</span></td><td><span>报告按Access_Type细分的所有Metric_Type的期刊内容使用情况。</span></td><td><span>Aggregated_Full_Content eJournal</span></td></tr><tr><td><span>TR_J4</span></td><td><span>Journal Requests by YOP (Excluding OA_Gold)</span></td><td><span>按出版年份（YOP）细分期刊内容（不包括Gold Open Access内容）的使用情况， 并提供</span><strong><span>Metric_Types</span></strong><span>（</span><strong><span>Total_Item_Requests</span></strong><span>和</span><strong><span>Unique_Item_Requests</span></strong><span>）的计数。提供分析备份文件或永久访问协议所涵盖内容的使用所必需的细节。请注意，COUNTER报告不提供访问模型或永久访问权限详细信息。</span></td><td><span>Aggregated_Full_Content eJournal</span></td></tr></tbody></table></figure><p><span>关于标题使用标准视图的详细信息，请参见下面的4.3节。</span></p><h4><a name="3124-项使用标准视图" class="md-header-anchor"></a><span>3.1.2.4 项使用标准视图</span></h4><p><span>项级报告的标准视图旨在支持最常见的报告需求。存储库的标准视图（期刊文章请求）提供了对各个期刊文章的用法的了解。多媒体的标准视图（多媒体项目请求）允许在标题级别评估多媒体。</span></p><p><span>表 3.e：项使用标准视图</span></p><figure><table><thead><tr><th><span>Report_ID</span></th><th><span>Report_Name</span></th><th><span>Details</span></th><th><span>Host_Types</span></th></tr></thead><tbody><tr><td><span>IR_A1</span></td><td><span>Journal Article Requests</span></td><td><span>文章级别的期刊文章请求报告。这个报告仅限于有文章的</span><strong><span>Data_Type</span></strong><span>，期刊的</span><strong><span>Parent_Data_Type</span></strong><span>和</span><strong><span>Metric_Types</span></strong><span>的</span><strong><span>Total_Item_Requests</span></strong><span>和</span><strong><span>Unique_Item_Requests</span></strong><span>的内容。仅在以下情况下必须提供此标准视图：（a）在IR中清楚所有文章是否为期刊文章，并且（b）所有期刊文章都知道父项。</span></td><td><span>Repository Scholarly_Collaboration_Network</span></td></tr><tr><td><span>IR_M1</span></td><td><span>Multimedia Item Requests</span></td><td><span>在项级别报告多媒体请求。</span></td><td><span>Multimedia</span></td></tr></tbody></table></figure><p><span>有关项目使用情况报告的详细信息，请参见下面的第4.4节。</span></p><h2><a name="32-counter报告的格式" class="md-header-anchor"></a><span>3.2 COUNTER报告的格式</span></h2><p><span>R5报告能够以表格形式或通过COUNTER_SUSHI API以机器可读数据（JSON）的形式传送。表格形式必须是Excel或制表符分隔值（TSV）文件。JSON和TSV格式的报告必须使用</span><strong><span>UTF-8</span></strong><span>进行编码。JSON格式必须符合COUNTER_SUSHI API规范（请参阅第8节）。</span></p><p><span>所有的COUNTER报告都具有相同的布局和结构。图3.b提供了“期刊请求（不包括OA_Gold）”标准视图的示例。图3.c显示了表格报告的布局，这将是本文档中讨论的重点。请注意，COUNTER_SUSHI API规范包含名称相同或相似的相同元素。因此，理解表格报告将转化为对通过COUNTER_SUSHI API检索的报告中需要的内容的理解。</span></p><p><span>图 3.b 期刊请求（不包括OA_Gold）标准视图样例</span></p><p><img src="img\TR_J1.png" referrerpolicy="no-referrer"></p><p><span>图 3.c COUNTER表格报表的布局</span></p><p><img src="img\image3.png" referrerpolicy="no-referrer"></p><p><span>所有COUNTER报告都有标题。在表格报告中，标题与正文之间用空白行分隔（以方便在Excel中进行排序和过滤）。在此之下是带有列标题的报告正文。正文的内容因报告而异。图3.c标识了您可以在报告中找到的各种信息以及此信息的相对位置。所有这些将在下面更详细地讨论。</span></p><h3><a name="321-报告标题" class="md-header-anchor"></a><span>3.2.1 报告标题</span></h3><p><span>表格COUNTER报表的前12行包含标题，而第13行始终为空白。标题信息以一系列名称/值对的形式显示，名称显示在A列中，相应的值显示在B列中。所有表格COUNTER报告在A列中具有相同的名称。B列条目因报告而异。</span></p><p><span>图3.d：通用报告标题信息</span></p><p><img src="img\FIG-3D.png" referrerpolicy="no-referrer"></p><p><span>图3.d显示了常见标题的布局。下表更详细地讨论了列A中的12个元素和列B中的值。请注意，元素名称（A列）务必与此处显示的一样展示在COUNTER报告中。大写，拼写和标点必须完全匹配。</span></p><p><span>表3.f：COUNTER报告标题元素</span></p><figure><table><thead><tr><th><span>元素名称</span></th><th><span>值的描述</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>Report_Name</span></td><td><span>报告的名称</span></td><td><span>Journal Requests (Excluding OA_Gold)</span></td></tr><tr><td><span>Report_ID</span></td><td><span>报告的唯一标识符</span></td><td><span>TR_J1</span></td></tr><tr><td><span>Release</span></td><td><span>此报告遵循的COUNTER版本。</span></td><td><span>5</span></td></tr><tr><td><span>Institution_Name</span></td><td><span>对于基于订阅的服务，是使用所属的机构的名称。对于OA出版商和存储库，无法确定各个机构的使用情况，应将使用情况归于“（全世界）The world”。</span></td><td><span>Mt. Laurel University</span></td></tr><tr><td><span>Institution_ID</span></td><td><span>一系列标识符，以</span><em><span>{namespace}</span></em><span>：</span><em><span>{value}</span></em><span>的格式表示机构。多个标识符用分号-空格(“; ”)分隔。允许的标识符命名空间是ISIL，ISNI，OCLC，对于由内容提供商分配的本地标识符，则为内容提供商的平台ID。</span></td><td><span>ISNI:0000000419369078; pubsiteA:PrncU</span></td></tr><tr><td><span>Metric_Types</span></td><td><span>以分号分隔的指标类型列表。请注意，即使请求了Metric_Type，但如果没有报告项使用该类型，则它也可能不包含在报告正文中。</span></td><td><span>Unique_Item_Investigations; Unique_Item_Requests</span></td></tr><tr><td><span>Report_Filters</span></td><td><span>应用于使用报告的一系列过滤器，但</span><strong><span>Metric_Type</span></strong><span>，</span><strong><span>Begin_Date</span></strong><span>和</span><strong><span>End_Date</span></strong><span>除外（它们在表格报告中的单独行中显示，以方便阅读）。通常，过滤器会影响报告的使用量。过滤器以</span><em><span>{filter name}</span></em><span>=</span><em><span>{filter value}</span></em><span>格式出现，多个过滤器以分号-空格(“; ”)分隔，单个过滤器的多个值以竖线分隔符(&quot;</span><span>|</span><span>&quot;)分隔。</span></td><td><span>Access_Type=Controlled; Access_Method=Regular</span></td></tr><tr><td><span>Report_Attributes</span></td><td><span>应用于报告的一系列报告属性。通常，报告属性会影响使用情况的显示方式，但不会改变总数。属性以</span><em><span>{attribute name}</span></em><span>=</span><em><span>{attribute value}</span></em><span>格式出现，多个属性以分号-空格(“; ”)分隔，单个属性的多个值以竖线分隔符(&quot;</span><span>|</span><span>&quot;)分隔。</span></td><td><span>Attributes_To_Show=Access_Type</span></td></tr><tr><td><span>Exceptions</span></td><td><span>指明所请求的使用情况与报告中呈现的使用情况之间的一些差异。异常值的格式为</span><em><span>{Exception Number}</span></em><span>: </span><em><span>{Exception Description}</span></em><span> ，多个异常值之间用分号-空格（“; ”）分隔。异常编号和异常描述必须与</span><a href='https://www.projectcounter.org/appendix-f-handling-errors-exceptions/'><span>附录F的</span></a><span>表F.1中提供的值匹配。数据是可选的。</span><br><span>请注意，对于表格报告，只有少数异常会被应用。</span></td><td><span>3031: Usage Not Ready for Requested Dates (request was for 2016-01-01 to 2016-12-31; however, usage is only available to 2016-08-31)</span></td></tr><tr><td><span>Reporting_Period</span></td><td><span>报告使用的日期范围, 格式为: “Begin_Date=</span><em><span>yyyy-mm-dd</span></em><span>; End_Date=</span><em><span>yyyy-mm-dd</span></em><span>”.</span></td><td><span>Begin_Date=2016-01-01; End_Date=2016-08-30</span></td></tr><tr><td><span>Created</span></td><td><span>使用的日期和时间，格式为RFC3339日期时间格式（</span><em><span>yyyy-mm-ddThh：mm：ssZ</span></em><span>）。</span></td><td><span>2016-10-11T14:37:15Z</span></td></tr><tr><td><span>Created_By</span></td><td><span>创建COUNTER报告的组织或系统的名称。</span></td><td><span>EBSCO Information Services 360 COUNTER</span></td></tr><tr><td><span>(blank row)</span></td><td><span>第13行必须为空白。</span></td><td>&nbsp;</td></tr></tbody></table></figure><h3><a name="322-报告正文" class="md-header-anchor"></a><span>3.2.2 报告正文</span></h3><p><span>图3.b和3.c显示了包含大量数据元素的COUNTER报告的正文。并非所有报告都将包含所有元素。格式化报告时，请保持以下元素的顺序，但仅包括与该报告相关的那些元素。以下讨论将提供有关元素可以包含在哪些报告中的指南。有关元素到报告的广泛映射，请参见第4节。</span></p><h4><a name="报告项说明" class="md-header-anchor"></a><span>报告项说明</span></h4><p><span>每个COUNTER报告都会有描述其报告项的列。</span></p><p><span>表3.g：描述报告项的元素</span></p><figure><table><thead><tr><th><span>元素名称</span></th><th><span>描述</span></th><th><span>报告</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>Database</span></td><td><span>正在报告其使用情况的数据库的名称。仅适用于数据库报告。</span></td><td><span>DR</span><br><span>DR_D1, DR_D2</span></td><td><span>MEDLINE</span></td></tr><tr><td><span>Title</span></td><td><span>报告其使用情况的书籍或期刊的名称。仅适用于标题报告。</span></td><td><span>TR</span><br><span>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4</span></td><td><span>Journal of Economics Gone with the Wind</span></td></tr><tr><td><span>Item</span></td><td><span>报告其使用情况的文章，书籍章节，多媒体作品或存储库项目的名称。仅适用于项目报告。</span></td><td><span>IR</span><br><span>IR_A1, IR_M1</span></td><td><span>CRISPR gene-editing tested in a person for the first time</span></td></tr><tr><td><span>Publisher</span></td><td><span>内容项的发行商的名称。请注意，当内容项是数据库时，发布者将是创建该数据库的组织。</span></td><td><span>DR, TR, IR </span><br><span>DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td><td><span>Taylor &amp; Francis APA</span></td></tr><tr><td><span>Publisher_ID</span></td><td><span>发行商的唯一标识符，格式为</span><em><span>{namespace}</span></em><span>:</span><em><span>{value}</span></em><span>。当发行商有多个标识符时，将所有标识符以分号-空格(&quot;; &quot;)分隔，但是每种类型仅限一个。允许的标识符名称空间是ISNI，对于内容提供商分配的本地标识符，是内容提供商的平台ID。</span></td><td><span>DR, TR, IR                              DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td><td><span>ISNI:1234123412341234 ebscohost:PubX</span></td></tr></tbody></table></figure><h4><a name="平台" class="md-header-anchor"></a><span>平台</span></h4><p><span>报告中的下一列标识活动发生的平台。</span></p><p><span>表3.h：标识平台的元素</span></p><figure><table><thead><tr><th><span>元素名称</span></th><th><span>描述</span></th><th><span>报告</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>Platform</span></td><td><span>标识活动发生的平台/内容宿主。请注意，如果个别标题或内容组有自己的品牌用户体验，但驻留在一个公共宿主上，则必须使用底层公共宿主的标识作为平台。</span></td><td><span>All reports: PR, DR, TR, IR</span><br><span>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td><td><span>EBSCOhost ProQuest ScienceDirect</span></td></tr></tbody></table></figure><h4><a name="报告项标识符" class="md-header-anchor"></a><span>报告项标识符</span></h4><p><span>平台右侧的列进一步标识了要报告的项目。</span></p><p><span>表3.i：报告项标识符的元素</span></p><figure><table><thead><tr><th><span>元素名称</span></th><th><span>描述</span></th><th><span>报告</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>Authors</span></td><td><span>正在被报告的作品的作者，格式为{author name}* (</span><em><span>{author identifier}</span></em><span>) , author identifier 的格式为 </span><em><span>{namespace}</span></em><span>:</span><em><span>{value}</span></em><span>. 允许的标识符名称空间是ISNI和ORCID。 最多应包括三位作者，且多位作者之间用分号-空格（“; ”）隔开。</span><br><span>请注意，此元素仅在表格报表中使用，在JSON报表中，作者使用Type Author表示为Item_Contributors</span></td><td><span>IR</span><br><span>IR_A1</span></td><td><span>John Smith (ORCID:0000-0001-2345-6789)</span></td></tr><tr><td><span>Publication_Date</span></td><td><span>作品的出版日期，格式为</span><em><span>yyyy-mm-dd</span></em><span>。</span></td><td><span>IR </span><br><span>IR_A1</span></td><td><span>2018-09-05</span></td></tr><tr><td><span>Article_Version</span></td><td><span>ALPSP/NISO码指出父作品的版本。可能的值是 Accepted Manuscript, Version of Record, Corrected Version of Record, and Enhanced Version of Record的代码。</span></td><td><span>IR</span><br><span>IR_A1</span></td><td><span>VoR(Version of Record)</span></td></tr><tr><td><span>DOI</span></td><td><span>被报告项的数字对象标识符，格式为</span><em><span>{DOI prefix}</span></em><span>/</span><em><span>{DOI suffix}</span></em><span>.</span></td><td><span>TR, IR</span><br><span>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td><td><span>10.1629/uksg.434</span></td></tr><tr><td><span>Proprietary_ID</span></td><td><span>内容提供商为要报告的项分配的专有ID 。格式为</span><em><span>{namespace}</span></em><span>:</span><em><span>{value}</span></em><span> ,namespace是分配专有ID的宿主的platform ID。</span></td><td><span>DR, TR, IR</span><br><span>DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td><td><span>publisherA:jnrlCode123</span></td></tr><tr><td><span>ISBN</span></td><td><span>国际标准书号，格式为ISBN-13，带连字符。</span></td><td><span>TR, IR</span><br><span>TR_B1, TR_B2, TR_B3</span></td><td><span>978-3-16-148410-0</span></td></tr><tr><td><span>Print_ISSN</span></td><td><span>分配给连载出版物的印刷实例的国际标准序列号，格式为</span><em><span>nnnn-nnn [nX]</span></em><span>。</span></td><td><span>TR, IR</span><br><span>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1</span></td><td><span>0953-1513</span></td></tr><tr><td><span>Online_ISSN</span></td><td><span>分配给连载出版物的联机实例的国际标准序列号，格式为</span><em><span>nnnn-nnn [nX]</span></em><span>。</span></td><td><span>TR, IR TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1</span></td><td><span>2048-7754</span></td></tr><tr><td><span>Linking_ISSN</span></td><td><span>国际标准序列号，将分配给连载出版物所有实例的ISSN链接，格式为</span><em><span>nnnn-nnn [nX]</span></em><span>（仅JSON报告）。</span></td><td><span>TR, IR</span><br><span>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1</span></td><td><span>0953-1513</span></td></tr><tr><td><span>URI</span></td><td><span>通用资源标识符，根据RFC 3986的有效URL或URN。</span></td><td><span>TR, IR</span><br><span>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td><td>&nbsp;</td></tr></tbody></table></figure><h4><a name="父项说明和标识符" class="md-header-anchor"></a><span>父项说明和标识符</span></h4><p><span>当报告诸如文章和书籍章节之类的内容项的使用情况时，通常需要标识该项的父项，例如其所属的期刊或书籍。下一组分组标识了父级，并由一小部分报告使用。</span></p><p><span>表3.j：描述父项的元素</span></p><figure><table><thead><tr><th><span>元素名称</span></th><th><span>描述</span></th><th><span>报告</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>Parent_Title</span></td><td><span>父项的标题。</span></td><td><span>IR IR_A1</span></td><td><span>The Serials Librarian</span></td></tr><tr><td><span>Parent_Authors</span></td><td><span>父作品的作者。格式参见表3.i中的Authors元素。</span></td><td><span>IR IR_A1</span></td><td>&nbsp;</td></tr><tr><td><span>Parent_Publication_Date</span></td><td><span>父作品的发布日期，格式为</span><em><span>yyyy-mm-dd</span></em><span>。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Parent_Article_Version</span></td><td><span>指示父作品版本的ALPSP / NISO代码。可能的值是Accepted Manuscript, Version of Record, Corrected Version of Record和Enhanced Version of Record的码值。</span></td><td><span>IR IR_A1</span></td><td><span>VoR</span></td></tr><tr><td><span>Parent_Data_Type</span></td><td><span>标识父母的类型。</span></td><td><span>IR</span></td><td><span>Journal</span></td></tr><tr><td><span>Parent_DOI</span></td><td><span>分配给父项的DOI，格式为</span><em><span>{DOI prefix}</span></em><span>/</span><em><span>{DOI suffix}</span></em><span>。</span></td><td><span>IR IR_A1</span></td><td>&nbsp;</td></tr><tr><td><span>Parent_Proprietary_ID</span></td><td><span>标识父项的专有ID 。格式为</span><em><span>{namespace}</span></em><span>:</span><em><span>{value}</span></em><span> ,namespace是分配专有ID的宿主的platform ID。</span></td><td><span>IR IR_A1</span></td><td><span>TandF:wser20</span></td></tr><tr><td><span>Parent_ISBN</span></td><td><span>父项的ISBN，格式为ISBN-13，带连字符。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Parent_Print_ISSN</span></td><td><span>父项的印刷ISBN，格式为</span><em><span>nnnn-nnn [nX]</span></em><span>。</span></td><td><span>IR IR_A1</span></td><td><span>0361-526X</span></td></tr><tr><td><span>Parent_Online_ISSN</span></td><td><span>父项的在线ISSN格式为</span><em><span>nnnn-nnn[nX]</span></em><span>。</span></td><td><span>IR IR_A1</span></td><td><span>1541-1095</span></td></tr><tr><td><span>Parent_URI</span></td><td><span>父项的URI（有效的URL或RFC 3986规定的URN）。</span></td><td><span>IR IR_A1</span></td><td><a href='https://www.tandfonline.com/action/journalInformation?journalCode=wser20' target='_blank' class='url'>https://www.tandfonline.com/action/journalInformation?journalCode=wser20</a></td></tr></tbody></table></figure><h4><a name="组件项描述和标识符" class="md-header-anchor"></a><span>组件项描述和标识符</span></h4><p><span>存储库通常为给定存储库项存储多个组件。这些组件可以采用多个文件或数据集的形式，可以被标识</span></p><p><span>并在“主报告”中分别报告使用情况。请注意，可能仅对于</span><strong><span>Total_Item_Investigations</span></strong><span>和</span><strong><span>Total_Item_Request</span></strong><span>报告组件使用情况。对于其他</span><strong><span>Metric_Types</span></strong><span>，使用情况不能按组件细分，且对应的单元格必须是空的。</span></p><p><span>表3.k：描述组件项的元素</span></p><figure><table><thead><tr><th><span>元素名称</span></th><th><span>描述</span></th><th><span>报告</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>Component_Title</span></td><td><span>组件项的名称或标题。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Component_Authors</span></td><td><span>组件项的作者。格式参见表3.i中的Authors元素。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Component_Publication_Date</span></td><td><span>组件项的发布日期，格式为</span><em><span>yyyy-mm-dd</span></em><span>。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Component_Data_Type</span></td><td><span>组件项目的数据类型。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Component_DOI</span></td><td><span>组件项的DOI，格式为</span><em><span>{DOI prefix}</span></em><span>/</span><em><span>{DOI suffix}</span></em><span>。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Component_Proprietary_ID</span></td><td><span>存储库分配的专有ID，用于唯一标识组件。格式为{namespace}：{value}其中，namespace是分配了专有标识符的存储库的平台ID 。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Component_ISBN</span></td><td><span>组件项目的ISBN，格式为ISBN-13，带连字符。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Component_Print_ISSN</span></td><td><span>组件项的印刷ISBN，格式为</span><em><span>nnnn-nnn [nX]</span></em><span>。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Component_Online_ISSN</span></td><td><span>组件项的在线ISSN，格式为</span><em><span>nnnn-nnn[nX]</span></em></td><td><span>IR</span></td><td>&nbsp;</td></tr><tr><td><span>Component_URI</span></td><td><span>组件项的URI（有效的URL或RFC 3986规定的URN）。</span></td><td><span>IR</span></td><td>&nbsp;</td></tr></tbody></table></figure><h4><a name="项和报告属性" class="md-header-anchor"></a><span>项和报告属性</span></h4><p><span>表3.l：项和报告属性的元素</span></p><figure><table><thead><tr><th><span>元素名称</span></th><th><span>描述</span></th><th><span>报告</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>Data_Type</span></td><td><span>使用的内容的类型。</span><br><span>更多详细信息参见3.3.2。</span></td><td><span>PR, DR, TR, IR</span></td><td><span>Book Journal</span></td></tr><tr><td><span>Section_Type</span></td><td><span>当按块或节访问内容时，此属性描述内容单元的性质。有关更多详细信息，请参见3.3.3</span></td><td><span>TR</span></td><td><span>Article Chapter</span></td></tr><tr><td><span>YOP</span></td><td><span>报告的项的发行年份。</span><br><span>有关更多详细信息，请参见3.3.7。</span></td><td><span>TR, IR</span><br><span>TR_B1, TR_B2, TR_B3, TR_J4</span></td><td><span>1997</span></td></tr><tr><td><span>Access_Type</span></td><td><span>有关更多详细信息，请参见3.3.5。</span></td><td><span>TR, IR</span><br><span> TR_B3, TR_J3, IR_A1</span></td><td><span>Controlled OA_Gold</span></td></tr><tr><td><span>Access_Method</span></td><td><span>有关更多详细信息，请参见3.3.6。</span></td><td><span>PR, DR, TR, IR</span></td><td><span>Regular TDM</span></td></tr></tbody></table></figure><h4><a name="指标类型" class="md-header-anchor"></a><span>指标类型</span></h4><p><span>表3.m：Metric_Type的报告元素</span></p><figure><table><thead><tr><th><span>元素名称</span></th><th><span>描述</span></th><th><span>报告</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>Metric_Type</span></td><td><span>被计数的活动的类型。</span><br><span>有关更多详细信息，请参见3.3.4。</span></td><td><span>All reports: PR, DR, TR, IR</span><br><span>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td><td><span>Total_Item_Investigations</span></td></tr></tbody></table></figure><h4><a name="使用数据" class="md-header-anchor"></a><span>使用数据</span></h4><p><span>表3.n：使用数据元素</span></p><figure><table><thead><tr><th><span>元素</span></th><th><span>描述</span></th><th><span>报告</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>Reporting_Period_Total</span></td><td><span>该行涵盖所有月份的总使用量。注意，此元素不出现在JSON报告中，作为代替，JSON格式提供一个粒度报告属性。详细信息，请参见第3.3.8节。</span></td><td><span>All reports: PR, DR, TR, IR</span><br><span>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td><td><span>123456</span></td></tr><tr><td><em><span>Mmm-yyyy</span></em></td><td><span>报告涵盖的每月使用情况的一系列列。格式为</span><em><span>Mmm-yyyy</span></em><span>。 注意：在JSON格式中，这由每个月的Begin_Date和End_Date日期元素表示。</span></td><td><span>All reports: PR, DR, TR, IR</span><br><span>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td><td><span>May-2016</span></td></tr></tbody></table></figure><h2><a name="33-counter报告常见属性和元素" class="md-header-anchor"></a><span>3.3 COUNTER报告常见属性和元素</span></h2><p><span>COUNTER行为准则的早期版本侧重于与期刊相关的使用情况统计。之后书籍，文章多媒体集也被加入其中。R5进一步将COUNTER的范围扩展到研究数据和社交媒体领域。为了使用单一的、一致的、连贯的行为准则管理逐步扩大的领域，添加了一些新的元素和属性。</span></p><h3><a name="331-载体类型" class="md-header-anchor"></a><span>3.3.1 载体类型</span></h3><p><span>使用报告支持许多不同的内容载体类型，如eBook, A&amp;I_Database, eJournal等等。使用情况报告的需求因Host_Type而异。为了适应这种差异，R5定义了一组Host_Type类别。尽管Host_Type未出现在COUNTER报告中，但实践准则在本文档中始终使用Host_Type，以帮助内容提供者识别哪些报告，元素，度量标准类型和属性与它们相关。Host_Types是：</span></p><p><span>表3.o：Host_Type值列表</span></p><figure><table><thead><tr><th><span>Host_Type</span></th><th><span>描述</span></th><th><span>示例</span></th></tr></thead><tbody><tr><td><span>A&amp;I_Database</span></td><td><span>提供对包含支持搜索的学术文章的摘要和索引信息的数据库的访问。</span></td><td><span>APA</span><br><span>EBSCOhost </span><br><span>ProQuest</span></td></tr><tr><td><span>Aggregated_Full_Content</span></td><td><span>提供对聚合预设数据库的全文和其他在数据库许可的上下文环境中访问的内容。</span></td><td><span>EBSCOhost ProQuest</span></td></tr><tr><td><span>Data_Repository</span></td><td><span>包括学科资料库，机构等。</span></td><td><span>UK Data Service – ReShare</span><br><span>Figshare</span><br><span>DSpace</span><br><span>Eprints</span></td></tr><tr><td><span>Discovery_Service</span></td><td><span>通过提供对文章、书籍和其他元数据的主要索引的访问，帮助用户发现学术内容。</span></td><td><span>EBSCOhost (EDS) ProQuest (Primo/Summon)</span></td></tr><tr><td><span>eBook</span></td><td><span>提供对电子书内容（内容是可单独获取的电子书或打包的电子书）的访问</span></td><td><span>EB</span><br><span>EBSCOhost</span><br><span>ScienceDirect</span></td></tr><tr><td><span>eBook_Collection</span></td><td><span>提供对电子书集的访问（内容以固定集合的形式售卖，就像数据库一样）。</span></td><td><span>EBSCOhost</span></td></tr><tr><td><span>eJournal</span></td><td><span>提供对在线连载物（期刊、会议、报纸等等）的访问（内容是可单独获取的标题或包）。</span></td><td><span>ScienceDirect</span></td></tr><tr><td><span>Full_Content_Database</span></td><td><span>提供对数据库的访问，这些数据库是不属于系列或专题的内容项的集合。(i.e. 非聚合的).</span></td><td><span>Cochrane</span></td></tr><tr><td><span>Multimedia</span></td><td><span>提供对音频、视频和其他多媒体内容的访问。</span></td><td><span>Alexander Street Press</span></td></tr><tr><td><span>Multimedia_Collection</span></td><td><span>提供对能像数据库一样售卖和访问的多媒体材料的访问。</span></td><td>&nbsp;</td></tr><tr><td><span>Repository</span></td><td><span>提供查阅机构研究成果的途径。包括学科资料库、机构、部门等。</span></td><td><span>Cranfield CERES</span></td></tr><tr><td><span>Scholarly_Collaboration_Network</span></td><td><span>一种研究人员用来分享他们工作的信息的服务。</span></td><td><span>Mendeley Reddit/science</span></td></tr></tbody></table></figure><p><span>请注意，给定的内容载体可能具有不同的host_type类型，并希望提供适用于所有类型的报告、度量类型、元素和属性。比如， EBSCOhost可以被分类为 A&amp;I_Database, Aggregated_Full_Content, Discovery_Service, eBook和eBook_Collection。</span></p><h3><a name="332-数据类型" class="md-header-anchor"></a><span>3.3.2 数据类型</span></h3><p><span>R5以多种形式报告学术信息。这些形式被称作数据了类型</span><strong><span>Data_Type</span></strong><span>，在下表中列出，同时列出了载体类型</span><strong><span>Host_Type</span></strong><span>以及它们适用的报告。所有的Data_type都应用于平台报告，因为它们汇总了平台上的使用情况。注意，表格仅列出了为了合规需要提供一或多个报告的Host_Types，但是内容提供者可能提供额外的报告。例如，Host_Type eJournal也可以提供IR和IR_A1，然后在这些报告中使用Data_Type Article。</span></p><p><span>表 3.p: Date_Type的值</span></p><figure><table><thead><tr><th><span>Data_Type</span></th><th><span>描述</span></th><th><span>Host_Types</span></th><th><span>报告</span></th></tr></thead><tbody><tr><td><span>Article</span></td><td><span>一篇文章，通常发表在期刊或参考书上。当文章是项时Data_Type Article只适用于项报告，在标题报告中用Section_Type表示。</span></td><td><span>Repository Scholarly_Collaboration_Network</span></td><td><span>PR, IR</span><br><span>PR_P1, IR_A1</span></td></tr><tr><td><span>Book</span></td><td><span>论文著作</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eBook eBook_Collection Repository Scholarly_Collaboration_Network</span></td><td><span>PR, DR, TR, IR</span><br><span>PR_P1, DR_D1, TR_B1, TR_B2, TR_B3</span></td></tr><tr><td><span>Book_Segment</span></td><td><span>书的一部分(如章节、章节等)。注意，Data_Type Book_Segment仅适用于当书的一部分是项时的项目报告，在Title报告中，这由Section_Type表示。</span></td><td><span>Repository Scholarly_Collaboration_Network</span></td><td><span>PR, IR</span><br><span>PR_P1</span></td></tr><tr><td><span>Database</span></td><td><span>在数据库的上下文中搜索和访问内容的固定数据库。载体上的给定项可能在多个数据库中，但事务必须归属于特定的数据库。 注意，Data_Type Database只适用于数据库级别的搜索和拒绝访问，以及Full_Content_Databases的访问和请求。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection</span></td><td><span>PR, DR</span><br><span>PR_P1, DR_D1, DR_D2</span></td></tr><tr><td><span>Dataset</span></td><td><span>一个数据集</span></td><td><span>Data_Repository Repository</span></td><td><span>PR, IR</span><br><span>PR_P1</span></td></tr><tr><td><span>Journal</span></td><td><span>作为杂志或杂志连续出版的文本内容。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eJournal Repository</span></td><td><span>PR, DR, TR, IR PR_P1, DR_D1, TR_J1, TR_J2, TR_J3, TR_J4</span></td></tr><tr><td><span>Multimedia</span></td><td><span>多媒体内容，如音频，图片，音频流，视频流和视频。</span></td><td><span>Multimedia Multimedia_Collection</span></td><td><span>PR, DR, IR PR_P1, DR_D1, IR_M1</span></td></tr><tr><td><span>Newspaper_or_Newsletter</span></td><td><span>在报纸或通讯上连续刊登的文本内容。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service Repository</span></td><td><span>PR, DR, TR, IR PR_P1, DR_D1</span></td></tr><tr><td><span>Other</span></td><td><span>无法被分类的内容</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service Repository</span></td><td><span>PR, DR, TR, IR PR_P1, DR_D1</span></td></tr><tr><td><span>Platform</span></td><td><span>一个可以反映多个Data_Types使用情况的内容平台。注意，Data_Type平台只适用于Searches_Platform。</span></td><td><span>All Host_Types: A&amp;I_Database Aggregated_Full_Content Data_Repository Discovery_Service eBook eBook_Collection eJournal Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network</span></td><td><span>PR</span><br><span>PR_P1</span></td></tr><tr><td><span>Report</span></td><td><span>一个报告。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service Repository</span></td><td><span>PR, DR, TR, IR PR_P1, DR_D1</span></td></tr><tr><td><span>Repository_Item</span></td><td><span>存储库中存储的项的一种通用分类。</span></td><td><span>Repository</span></td><td><span>PR, IR PR_P1</span></td></tr><tr><td><span>Thesis_or_Dissertation</span></td><td><span>论文或学术演讲</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service Repository</span></td><td><span>PR, DR, TR, IR PR_P1, DR_D1</span></td></tr></tbody></table></figure><p><span>Full_Content_Databases也可以在主标题报告中使用Data_Type Database。所有其他Host_Types必须报告访问和请求，或者是标题级别的Data_Types(如journa, book, from Host_Type A&amp;I_Database, Aggregated_Full_Content, Discovery_Service, eBook, eBook_Collection 和 eJournal)，或项级别的Data_Types(如 article, Multimedia for a video from Host_Type Data_Repository, Multimedia, Multimedia_Collection, Repository和Scholarly_Collaboration_Network)。必须在需要合规的所有报告中使用这些Data_Types，以确保报告的一致性。</span></p><h3><a name="333-部分类型" class="md-header-anchor"></a><span>3.3.3 部分类型</span></h3><p><span>一些学术内容是在部分访问。例如，用户可以一次访问一个章节或部分。引入Section_Type以根据访问的部分的类型提供事务的分类。例如，图书馆员可以使用“标题主报告”查看按Title和 Section_Type细分的使用情况。下表列出了COUNTER定义的Section_Types和Host_Types以及它们适用的报告。</span></p><p><span>表3.q：Section_Type值列表</span></p><figure><table><thead><tr><th><span>Section_Type</span></th><th><span>描述</span></th><th><span>Host_Types</span></th><th><span>报告</span></th></tr></thead><tbody><tr><td><span>Article</span></td><td><span>文章，例如期刊，百科全书或参考书</span></td><td><span>Aggregated_Full_Content eJournal</span></td><td><span>TR</span></td></tr><tr><td><span>Book</span></td><td><span>一本完整的书，可以作为一个文件进行访问。</span></td><td><span>Aggregated_Full_Content eBook eBook_Collection</span></td><td><span>TR</span></td></tr><tr><td><span>Chapter</span></td><td><span>一本书的一章。</span></td><td><span>Aggregated_Full_Content eBook eBook_Collection</span></td><td><span>TR</span></td></tr><tr><td><span>Other</span></td><td><span>列表中未另示的部分中提供的内容。</span></td><td><span>Aggregated_Full_Content</span></td><td><span>TR</span></td></tr><tr><td><span>Section</span></td><td><span>一组章节或文章。</span></td><td><span>Aggregated_Full_Content eBook eBook_Collection eJournal</span></td><td><span>TR</span></td></tr></tbody></table></figure><h3><a name="334-指标类型" class="md-header-anchor"></a><span>3.3.4 指标类型</span></h3><p><span>Metric_Types代表所计数的活动的性质，可以分为搜索（Searches），访问（investigations），请求（Requests）和拒绝访问（Access Denied）。表3.r，3.s和3.t列出了Metric_Types和Host_Types以及它们适用的报告。</span></p><h4><a name="搜索searches）" class="md-header-anchor"></a><span>搜索（Searches）</span></h4><p><span>表3.r：搜索的Metric_Type类型列表</span></p><figure><table><thead><tr><th><span>Metric_Type</span></th><th><span>描述</span></th><th><span>Host_Types</span></th><th><span>报告</span></th></tr></thead><tbody><tr><td><span>常规搜索</span><br><span>Searches_Regular</span></td><td><span>针对用户选择在UI界面上返回结果的搜索次数。由用户负责选择搜索的数据库或者数据库集。此度量标准仅适用于在数据库级别跟踪的使用情况，而不显示平台级别的。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection</span></td><td><span>DR DR_D1</span></td></tr><tr><td><span>自动搜索</span><br><span>Searches_Automated</span></td><td><span>在主机站点或发现服务上进行的搜索，结果在主机UI中返回，无需用户选择数据库就可以搜索多个数据库。此度量标准仅适用于在数据库级别跟踪的使用情况，在平台级别不显示。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection</span></td><td><span>DR DR_D1</span></td></tr><tr><td><span>联合搜索</span><br><span>Searches_Federated</span></td><td><span>由联合搜索引擎进行的搜索，其中搜索活动是通过客户端-服务器技术远程进行的。此度量标准仅适用于在数据库级别跟踪的使用情况，而在平台级别不显示。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eBook_Collection Full_Content_Database Multimedia_Collection</span></td><td><span>DR DR_D1</span></td></tr><tr><td><span>平台搜索</span><br><span>Searches_Platform</span></td><td><span>由用户执行并在平台级别捕获的搜索。不论搜索涉及的数据库数量如何，每个用户启动的搜索都只能计数一次。该指标仅适用于平台报告。</span></td><td><span>All Host_Types:</span><br><span>A&amp;I_Database Aggregated_Full_Content Data_Repository* Discovery_Service eBook eBook_Collection eJournal Full_Content_Database Multimedia Multimedia_Collection Repository* Scholarly_Collaboration_Network</span></td><td><span>PR PR_P1</span></td></tr></tbody></table></figure><p><span>*存储库应该提供这些Metric_Type。</span></p><p><strong><span>项和标题的访问和请求</span></strong></p><p><span>这组Metric_Types代表检索了内容项（请求）或访问了有关内容项的信息（例如摘要）的活动。可以归属于内容项的任何用户活动都将被视为访问，包括下载或查看该项。请求仅限于与检索或查看内容项本身有关的用户活动。下图提供了访问和请求之间关系的图形表示。</span></p><p><span>图3e：访问与请求之间的关系</span></p><p><img src="img\Picture1-2.png" referrerpolicy="no-referrer"></p><p><strong><span>总计，唯一项和唯一标题</span></strong></p><p><span>R5还引入了唯一项和唯一标题的概念。以Total开头的Metric_Types与R4的度量非常相似，即，如果在用户会话中多次访问给定的文章，书籍或书籍章节，则该指标将增加访问内容项的次数（过滤了双击行为导致的重复计数）。</span></p><p><span>R5中引入了Unique_Item度量标准，以帮助消除不同风格的用户界面可能对使用计数产生的影响。使用R5，如果在给定的用户会话中多次访问单个文章，则相应的Unique_Item指标只能增加1，以简单地指示在会话中访问了该内容项。</span></p><p><span>R5中引入了Unique_Title指标，以帮助规范电子书指标。由于可以将整本电子书下载为单个PDF或作为单独的章节，因此R4的BR1（书籍下载）和BR2（章节下载）的计数是不可比的。使用R5，无论在给定的用户会话中访问了多少（或多少次）章节，该书的Unique_Title指标都只会增加1 。无论平台的性质以及电子书内容的交付方式如何，Unique_Title指标均提供可比较的电子书指标。</span></p><p><span>Unique_Title指标不得用于Book以外的Data_Type，因为它们对它们没有意义。如果一本书同时包含OA_Gold和Controlled部分或具有不同YOP的部分，则必须按Access_Type和YOP细分使用情况，以使报告之间的总计数，包括和不包括这些列/元素保持一致。</span></p><p><span>表3.s：请求和访问的Metric_Type列表</span></p><figure><table><thead><tr><th><span>Metric_Type</span></th><th><span>描述</span></th><th><span>Host_Types</span></th><th><span>报告</span></th></tr></thead><tbody><tr><td><span>Total_Item_Investigations</span></td><td><span>内容项或内容项相关的信息被访问的次数。双击过滤器将应用于这些事务。内容项可以是文章，书籍的章节或者多媒体文件。</span></td><td><span>All Host_Types:</span><br><span>A&amp;I_Database Aggregated_Full_Content Data_Repository* Discovery_Service</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span><br><span>Full_Content_Database Multimedia Multimedia_Collection Repository* Scholarly_Collaboration_Network</span></td><td><span>PR, DR, TR, IR</span><br><span>DR_D1, TR_B3, TR_J3</span></td></tr><tr><td><span>Unique_Item_Investigations</span></td><td><span>用户会话中访问的唯一内容项的数量。内容项可以是文章，书籍的章节或者多媒体文件。</span></td><td><span>All Host_Types:</span><br><span>A&amp;I_Database Aggregated_Full_Content Data_Repository* Discovery_Service</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal Full_Content_Database Multimedia Multimedia_Collection Repository* Scholarly_Collaboration_Network</span></td><td><span>PR, DR, TR, IR</span><br><span>TR_B3, TR_J3</span></td></tr><tr><td><span>Unique_Title_Investigations</span></td><td><span>用户会话中访问的唯一标题的数量。标题可以是书。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eBook eBook_Collection</span></td><td><span>PR, DR, TR TR_B3</span></td></tr><tr><td><span>Total_Item_Requests</span></td><td><span>请求内容项的总次数（即，下载或查看全文或内容）。双击过滤器将应用于这些事务。内容项可以是文章，书籍的章节或者多媒体文件。</span></td><td><span>Aggregated_Full_Content Data_Repository</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network</span></td><td><span>PR, DR, TR, IR PR_P1, DR_D1, TR_B1, TR_B3, TR_J1, TR_J3, TR_J4, IR_A1, IR_M1</span></td></tr><tr><td><span>Unique_Item_Requests</span></td><td><span>用户会话中请求的唯一内容项的数量。内容项可以是文章，书籍的章节或者多媒体文件。</span></td><td><span>Aggregated_Full_Content Data_Repository</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span><br><span>Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network</span></td><td><span>PR, DR, TR, IR PR_P1, TR_B3, TR_J1, TR_J3, TR_J4, IR_A1</span></td></tr><tr><td><span>Unique_Title_Requests</span></td><td><span>用户会话中请求的唯一标题的数量。标题可以是书。</span></td><td><span>Aggregated_Full_Content eBook eBook_Collection</span></td><td><span>PR, DR, TR PR_P1, TR_B1, TR_B3</span></td></tr></tbody></table></figure><p><span>*存储库应该提供这些Metric_Type。</span></p><p><strong><span>拒绝访问</span></strong></p><p><span>表3.t：拒绝访问的Metric_Type类型列表</span></p><figure><table><thead><tr><th><span>Metric_Type</span></th><th><span>描述</span></th><th><span>Host_Types</span></th><th><span>报告</span></th></tr></thead><tbody><tr><td><span>No_License</span></td><td><span>由于用户所在的机构没有内容许可，因此拒绝访问的次数。双击过滤将应用于此Metric_Type。</span><br><span>请注意，如果用户自动重定向到摘要，则该操作将被计为No_License以及Item_Investigation。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span><br><span>Full_Content_Database Multimedia Multimedia_Collection Scholarly_Collaboration_Network</span></td><td><span>DR, TR, IR</span><br><span>DR_D2, TR_B2, TR_J2</span></td></tr><tr><td><span>Limit_Exceeded</span></td><td><span>由于超出了用户机构许可的同时使用用户限制，因此拒绝访问的次数。双击过滤将应用于此Metric_Type。</span></td><td><span>A&amp;I_Database Aggregated_Full_Content Discovery_Service eBook eBook_Collection eJournal Full_Content_Database Multimedia Multimedia_Collection Scholarly_Collaboration_Network</span></td><td><span>DR, TR, IR DR_D2, TR_B2, TR_J2</span></td></tr></tbody></table></figure><h3><a name="335-访问类型" class="md-header-anchor"></a><span>3.3.5 访问类型</span></h3><p><span>为了跟踪许可内容的使用价值，图书馆员想知道有多少Open Access或其他免费可用内容被使用，以及有多少内容的使用是需要付费的。为了适应这种情况，R5引入了Access_Type属性，其值是Controlled，OA_Gold，OA_Delayed和Other_Free_To_Read。下表列出了Access_Types和Host_Types以及它们适用的报告。请注意，Access_Type与使用的平台的访问有关：如果在平台上限制了对Gold Open Access文章的访问（例如，因为该文章包含在仅供订阅者使用的聚合全文数据库中），则Access_Type是受控的。</span></p><p><span>表3.u：Access_Type值列表</span></p><figure><table><thead><tr><th><span>Access_Type</span></th><th><span>描述</span></th><th><span>Host_Types</span></th><th><span>报告</span></th></tr></thead><tbody><tr><td><span>Controlled</span></td><td><span>在请求或调查时，内容项不开放（例如，在付费专栏后面），访问仅限于授权用户。 由于试用订阅/许可而导致的内容访问将被视为受控制。</span><br><span>平台提供的可免费获得但不是OA_Gold类型的（如，出于营销目的的免费，或一你年后提供免费访问权）必须跟踪为Controlled。</span></td><td><span>Aggregated_Full_Content Data_Repository</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span><br><span>Multimedia</span><br><span>Repository Scholarly_Collaboration_Network</span></td><td><span>TR, IR</span><br><span>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td></tr><tr><td><span>OA_Gold</span></td><td><span>在用户请求或调查时，该内容项已获得Gold Open Access许可 (支付了文章费用或者由图书馆，社会或其他组织赞助了出版的可永久开放访问的内容）。内容项可能在混合出版物中，也可能在完全开放式出版物中。</span><br><span>注意，延迟开放访问（在禁用期之后开放）的内容项，在实施OA_Delayed之前，当前必须分类为Controlled。</span></td><td><span>Data_Repository</span><br><span>eBook</span><br><span>eJournal</span><br><span>Multimedia</span><br><span>Repository Scholarly_Collaboration_Network</span></td><td><span>TR, IR</span><br><span>TR_B3, TR_J3, IR_A1, IR_M1</span></td></tr><tr><td><span>OA_Delayed</span></td><td><strong><em><span>保留以备将来使用–请勿实施</span></em></strong><br><span>用户请求或访问的内容项在禁用期过后可以开放访问使用。注意：此值只有在COUNTER批准并包含了COUNTER发布的实施时间表后才能使用。</span></td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td><span>Other_Free_To_Read</span></td><td><span>在交易时，内容项可以免费阅读（不需要许可证），并且不符合OA_Gold Access_Type的条件。</span></td><td><span>Data_Repository Repository</span></td><td><span>IR IR_A1</span></td></tr></tbody></table></figure><h3><a name="336-访问方式" class="md-header-anchor"></a><span>3.3.6 访问方式</span></h3><p><span>为了跟踪出于文本和数据挖掘（TDM）的目的而访问的内容使用，并使该使用与正常使用分开，R5引入了Access_Method属性，其中包含Regular和TDM的值。下表列出了Access_Methods和Host_Types以及它们适用的报告。</span></p><p><span>表3.v：Access_Method值列表</span></p><figure><table><thead><tr><th><span>Access_Method</span></th><th><span>描述</span></th><th><span>Host_Types</span></th><th><span>报告</span></th></tr></thead><tbody><tr><td><span>Regular</span></td><td><span>指代表典型用户行为的平台或内容宿主上的活动。</span></td><td><span>All Host_Types:</span><br><span>A&amp;I_Database Aggregated_Full_Content Data_Repository Discovery_Service</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span><br><span>Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network</span></td><td><span>All reports:</span><br><span>PR, DR, TR, IR</span><br><span>PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td></tr><tr><td><span>TDM</span></td><td><span>为了文本和数据挖掘而访问的内容和元数据，如，通过用于TDM的特定API。请注意，代表TDM活动的使用仅包括在主报告中。</span></td><td><span>All Host_Types:</span><br><span>A&amp;I_Database Aggregated_Full_Content Data_Repository Discovery_Service</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span><br><span>Full_Content_Database Multimedia Multimedia_Collection Repository Scholarly_Collaboration_Network</span></td><td><span>PR, DR, TR, IR</span></td></tr></tbody></table></figure><h3><a name="337-yop" class="md-header-anchor"></a><span>3.3.7 YOP</span></h3><p><span>还需要根据内容的时间来分析集合的使用情况。YOP属性表示发行的年份，并且必须针对所有的访问，请求和拒绝访问在标题和项报告中跟踪。下表列出了Host_Types，并报告了YOP属性适用于的属性。</span></p><p><span>表3.w：YOP值</span></p><figure><table><thead><tr><th><span>YOP</span></th><th><span>描述</span></th><th><span>Host_Types</span></th><th><span>报告</span></th></tr></thead><tbody><tr><td><em><span>yyyy</span></em></td><td><span>项的发行年份使用4为数字表示。如果某个内容项的在线版本发行日期与印刷版本不同，则使用记录中的版本的发行年份。如果不知道出版年份，则使用值0001。对于印刷中的文章（尚未分配给期刊），请使用值9999。</span></td><td><span>Aggregated_Full_Content Data_Repository</span><br><span>eBook</span><br><span>eBook_Collection</span><br><span>eJournal</span><br><span>Multimedia</span><br><span>Repository Scholarly_Collaboration_Network</span></td><td><span>TR, IR</span><br><span>TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td></tr></tbody></table></figure><h3><a name="338-报告过滤器和报告属性" class="md-header-anchor"></a><span>3.3.8 报告过滤器和报告属性</span></h3><p><span>使用数据的自定义视图是通过对主报告应用报告过滤器和报告属性创建的。R5指定的标准视图是此类视图的示例。报告属性定义了报告中的列，报告过滤器过滤报告的行（记录值）。对于主报告，用户可以根据报告从特定的过滤器和属性集中进行选择，而对于标准视图，过滤器和属性是预先设置的，除了可选的平台过滤器。</span></p><p><span>用于创建报告的过滤器和属性包含在报告头部中（除非使用默认值，在这种情况下，必须省略过滤器/属性），对于JSON报告，报告过滤器和报告属性是以名称/值对的形式表示，对于表格形式则是以Metric_Types, Reporting_Period, Report_Filters和Report_Attributes元素指定编码格式表示（编码格式见3.2.1节）。对于 COUNTER_SUSHI API每个过滤器/属性都以对应的小写形式作为参数传递给方法(详情查看 </span><a href='https://app.swaggerhub.com/apis/COUNTER'><span>COUNTER_SUSHI API Specification</span></a><span> )。</span></p><p><span>下表显示了属性和过滤器以及（可能）出现在头部中的报告（使用默认值的标准视图除外）。</span></p><p><span>表3.x：报告属性</span></p><figure><table><thead><tr><th><span>Report Attribute</span></th><th><span>Description</span></th><th><span>Reports</span></th></tr></thead><tbody><tr><td><span>Attributes_To_Show</span></td><td><span>要包括在报告中的可选列/元素的列表（默认值：无）。有关允许值，请参见第4.1.2、4.2.2、4.3.2和4.4.2节。请注意，不能单独选择组件和父列/元素，并且不得将其包括在列表中（请参见下面的</span><strong><span>Include_Component_Details</span></strong><span>和</span><strong><span>Include_Parent_Details</span></strong><span>属性）。</span></td><td><span>PR, DR, TR, IR</span></td></tr><tr><td><span>Exclude_Monthly_Details</span></td><td><span>指定是否从报告中排除每月使用量的列。允许的值为False（默认）和True。此属性仅适用于表格报告。JSON报告的相应属性是Granularity。</span></td><td><span>PR, DR, TR, IR (tabular)</span></td></tr><tr><td><span>Granularity</span></td><td><span>指定要包括在报告中的使用情况数据的粒度。允许的值为“Month”（默认）和“Total”。此属性仅适用于JSON报告，表格报告的相应属性为Exclude_Monthly_Details。</span><br><span>对于“总计”，每个</span><strong><span>Item_Performance</span></strong><span>元素代表所报告的时间段的汇总使用。要符合COUNTER标准就要支持月粒度，总计是可选的。</span></td><td><span>PR, DR, TR, IR (JSON)</span></td></tr><tr><td><span>Include_Component_Details</span></td><td><span>指定是否在报告中包括组件列/元素（请参见表3.k）。允许的值为False（默认）和True。</span></td><td><span>IR</span></td></tr><tr><td><span>Include_Parent_Details</span></td><td><span>指定是否在报告中包括父列/元素（请参见表3.j）。允许的值为False（默认）和True。</span></td><td><span>IR</span></td></tr></tbody></table></figure><p><span>表3.y：报告过滤器</span></p><figure><table><thead><tr><th><span>Report Filter</span></th><th><span>Description</span></th><th><span>Reports</span></th></tr></thead><tbody><tr><td><span>Access_Method</span></td><td><span>要包括其用法的Access_Method列表（默认值：全部）。有关允许/预设值，请参见第4.1.3、4.2.3、4.3.3和4.4.3节。</span></td><td><span>All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td></tr><tr><td><span>Access_Type</span></td><td><span>要包括其用法的Access_Type列表（默认值：全部）。有关允许/预设值，请参见第4.3.3和4.4.3节。</span></td><td><span>TR, IR TR_B1, TR_B2, TR_J1, TR_J2, TR_J4, IR_A1</span></td></tr><tr><td><span>Begin_Date End_Date</span></td><td><span>报告期的开始和结束。请注意，COUNTER_SUSHI API允许方法参数的格式为</span><em><span>yyyy-mm</span></em><span>，必须将其与报告标题的月份的第一天/最后一天一起扩展。对于表格报表，这些过滤器包含在Reporting_Period标头中，而不是Reporting_Filters标头中，以便于阅读。</span></td><td><span>All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td></tr><tr><td><span>Database</span></td><td><span>正在请求使用的特定数据库的名称（默认值：all）。对此过滤器的支持是可选的，但建议在报告网站上使用。</span></td><td><span>DR</span></td></tr><tr><td><span>Data_Type</span></td><td><span>要包括其的Data_Type列表（默认值：all）。有关允许/预设值，请参见第4.1.3、4.2.3、4.3.3和4.4.3节。</span></td><td><span>PR, DR, TR, IR TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td></tr><tr><td><span>Item_Contributor</span></td><td><span>请求使用的特定贡献者（作者）的标识符（默认值：all）。对此过滤器的支持是可选的，但建议在报告网站上使用。</span></td><td><span>IR</span></td></tr><tr><td><span>Item_ID</span></td><td><span>要求使用的特定项的标识符。对此过滤器的支持是可选的，但建议在报告网站上使用。</span></td><td><span>TR, IR</span></td></tr><tr><td><span>Metric_Type</span></td><td><span>要包括的Metric_Type列表（默认值：all）。有关允许/预设值，请参见第4.1.3、4.2.3、4.3.3和4.4.3节。对于表格报表，此过滤器包含在Metric_Types标头中，而不是Reporting_Filters标头中，以便于阅读。</span></td><td><span>All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td></tr><tr><td><span>Platform</span></td><td><span>适用于多个平台使用同一个接入点的情况。当不同平台使用相同的COUNTER_SUSHI API基础URL时，需要对每个请求都添加platform参数。在Web界面中，这对应于首先选择一个平台，然后仅为该平台创建报告。</span></td><td><span>All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1</span></td></tr><tr><td><span>Section_Type</span></td><td><span>要包括其用法的Section_Types列表（默认值：全部）。有关允许值，请参见第4.3.3节。</span></td><td><span>TR</span></td></tr><tr><td><span>YOP</span></td><td><span>包含使用的发行年份范围（默认值：all）。对于COUNTER_SUSHI API，必须支持更复杂的过滤器值（年份和范围列表）。</span></td><td><span>TR, IR</span></td></tr></tbody></table></figure><h3><a name="339-零使用" class="md-header-anchor"></a><span>3.3.9 零使用</span></h3><p><span>并非所有的内容提供者或其他COUNTER报告提供者都将其COUNTER报告工具链接到其订阅数据库，因此R5报告不能包括基于订阅记录的零使用报告。包括所有内容（包括未订阅的内容）的零使用报告可能会使报告变得难以管理。</span><a href='https://www.niso.org/standards-committees/kbart/kbart-automation'><span>KBART自动化工作组</span></a><span>计划将解决图书馆识别零使用量的已订阅书名的需求。</span></p><ul><li><p><span>对于表格报告</span></p><ul><li><span>省略Reporting_Period_Total为零的任何行。</span></li><li><span>如果Reporting_Period_Total不为零，但是包含月份的使用率为零，请将该月的单元格值设置为0。</span></li></ul></li><li><p><span>对于JSON报告</span></p><ul><li><span>忽略计数为零的任何实例元素。</span></li><li><span>忽略没有至少一个实例元素的Performance元素。</span></li><li><span>忽略没有至少一个Performance元素的Report_Items元素。</span></li></ul></li></ul><h3><a name="3310-缺少和未知的字段值" class="md-header-anchor"></a><span>3.3.10 缺少和未知的字段值</span></h3><ul><li><p><span>对于表格报告</span></p><ul><li><span>如果字段值丢失或未知（例如，标题的ISBN不存在或未知），则该字段必须留为空白。为了清楚起见，该字段不得包含诸如“unknown”或“ n/a”之类的值。</span></li></ul></li><li><p><span>对于JSON报告</span></p><ul><li><span>如果字段的值丢失或未知，并且COUNTER_SUSHI API规范（请参阅下面的</span><a href='https://www.projectcounter.org/code-of-practice-five-sections/8-sushi-automated-report-harvesting/'><span>第8节</span></a><span>）表明该字段是必需的，则该字段的值必须以合适的数据类型表示为空。</span></li><li><span>如果某个字段的值丢失或未知，并且根据COUNTER_SUSHI API规范不要求该字段，则必须从响应中省略该字段。</span></li></ul></li></ul></div>
+</body>
+</html>
