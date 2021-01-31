@@ -429,7 +429,7 @@ Unique_Title指标不得用于Book以外的Data_Type，因为它们对它们没�
 | Item_ID             | 要求使用的特定项的标识符。对此过滤器的支持是可选的，但建议在报告网站上使用。 | TR, IR                                                       |
 | Metric_Type         | 要包括的Metric_Type列表（默认值：all）。有关允许/预设值，请参见第4.1.3、4.2.3、4.3.3和4.4.3节。对于表格报表，此过滤器包含在Metric_Types标头中，而不是Reporting_Filters标头中，以便于阅读。 | All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
 | Platform            | 适用于多个平台使用同一个接入点的情况。当不同平台使用相同的COUNTER_SUSHI API基础URL时，需要对每个请求都添加platform参数。在Web界面中，这对应于首先选择一个平台，然后仅为该平台创建报告。 | All reports: PR, DR, TR, IR PR_P1, DR_D1, DR_D2, TR_B1, TR_B2, TR_B3, TR_J1, TR_J2, TR_J3, TR_J4, IR_A1, IR_M1 |
-| Section_Type        | 要包括其用法的Section_Types列表（默认值：全部）。有关允许值，请参见第4.3.3节。 | TR                                                           |
+| Section_Type        | 要包括其用法的Section_Types列表（默认值：全部）。有关允许值，请参见第3.3.3节。 | TR                                                           |
 | YOP                 | 包含使用的发行年份范围（默认值：all）。对于COUNTER_SUSHI API，必须支持更复杂的过滤器值（年份和范围列表）。 | TR, IR                                                       |
 
 ### 3.3.9 零使用
